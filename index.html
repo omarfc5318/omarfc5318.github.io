@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Omar Farhan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #0F0F0F; --sand: #1A1A1A; --warm-gray: #888888;
+  --ink: #F0EDE8; --ink-light: #B0ADA8;
+  --amber: #E8943A; --amber-bg: #1E1610; --border: #2A2A2A;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --arabic: 'Cairo', sans-serif;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+a, button { pointer-events: auto; }
+body { font-family: var(--sans); background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none; }
+body.ar { font-family: var(--arabic); direction: rtl; }
+body.ar .hero h1 { font-family: var(--arabic); font-weight: 600; }
+body.ar .section-title { font-family: var(--arabic); font-weight: 600; }
+body.ar .nav-logo { font-family: var(--arabic); font-weight: 600; }
+
+/* ── CUSTOM CURSOR ── */
+#cursor { position: fixed; width: 10px; height: 10px; background: var(--amber); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.08s ease, opacity 0.2s; mix-blend-mode: normal; }
+#cursor-ring { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(232,148,58,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.18s ease; }
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { transform: translate(-50%,-50%) scale(2.2); background: var(--amber); }
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { transform: translate(-50%,-50%) scale(1.6); border-color: var(--amber); }
+
+/* ── CURSOR TRAIL ── */
+.trail-dot { position: fixed; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); pointer-events: none; z-index: 9997; transform: translate(-50%,-50%); opacity: 0; transition: opacity 0.4s; }
+
+/* ── ANIMATED BG ── */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; opacity: 0.18; pointer-events: none; }
+
+/* ── LANG TOGGLE ── */
+#lang-toggle { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; background: var(--sand); border: 1px solid var(--border); border-radius: 100px; padding: 0.45rem 1rem; font-size: 0.78rem; font-weight: 500; color: var(--amber); cursor: none; transition: all 0.2s; letter-spacing: 0.04em; }
+#lang-toggle:hover { background: var(--amber); color: #0F0F0F; border-color: var(--amber); }
+
+/* ── KEYBOARD HINT ── */
+#kb-hint { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 200; font-size: 0.68rem; color: var(--warm-gray); letter-spacing: 0.08em; opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+#kb-hint.show { opacity: 1; }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 4rem; background: rgba(15,15,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.85rem; color: var(--ink-light); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; cursor: none; pointer-events: auto; position: relative; z-index: 101; }
+.nav-links a:hover { color: var(--amber); }
+.nav-resume { font-size: 0.78rem; font-weight: 500; color: var(--amber); text-decoration: none; border: 1px solid var(--amber); padding: 0.4rem 1rem; border-radius: 100px; transition: all 0.2s; cursor: none; }
+.nav-resume:hover { background: var(--amber); color: #fff; }
+
+/* ── HERO ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 5rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 500; color: var(--amber); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.75rem; opacity: 0; animation: fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--amber); }
+body.ar .hero-tag::before { display: none; }
+body.ar .hero-tag::after { content: ''; display: block; width: 24px; height: 1px; background: var(--amber); }
+.hero h1 { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; color: var(--ink); max-width: 720px; margin-bottom: 1.5rem; font-weight: 400; opacity: 0; animation: fadeUp 0.8s 0.25s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero h1 em { font-style: italic; color: var(--amber); }
+body.ar .hero h1 em { font-style: normal; }
+
+/* Typewriter */
+#typewriter-wrap { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; color: var(--ink); max-width: 720px; margin-bottom: 1.5rem; font-weight: 400; opacity: 0; animation: fadeUp 0.8s 0.25s cubic-bezier(0.16,1,0.3,1) forwards; min-height: 1.15em; }
+#typewriter-text { color: var(--amber); font-style: italic; }
+#typewriter-cursor { display: inline-block; width: 3px; background: var(--amber); margin-left: 2px; animation: blink 0.9s infinite; vertical-align: baseline; height: 0.85em; position: relative; top: 0.05em; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }
+.pill { font-size: 0.78rem; padding: 0.3rem 0.85rem; border: 1px solid var(--border); border-radius: 100px; color: var(--ink-light); background: var(--sand); }
+.pill.accent { background: var(--amber-bg); border-color: #3A2A10; color: var(--amber); }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.btn-primary { font-family: var(--sans); font-size: 0.875rem; font-weight: 500; color: #0F0F0F; background: var(--amber); text-decoration: none; padding: 0.75rem 1.75rem; border-radius: 100px; transition: background 0.2s; cursor: none; }
+.btn-primary:hover { background: #d4812e; }
+.btn-outline { font-family: var(--sans); font-size: 0.875rem; color: var(--ink); background: transparent; text-decoration: none; padding: 0.75rem 1.75rem; border-radius: 100px; border: 1px solid var(--border); transition: border-color 0.2s; cursor: none; }
+.btn-outline:hover { border-color: var(--ink); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── NOW PLAYING ── */
+#now-playing { position: fixed; top: 5.5rem; right: 1.5rem; z-index: 150; background: var(--sand); border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 1rem; max-width: 220px; opacity: 0; transform: translateY(-8px); transition: opacity 0.4s, transform 0.4s; }
+#now-playing.loaded { opacity: 1; transform: translateY(0); }
+.np-label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.35rem; }
+.np-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.6;transform:scale(0.8);} }
+.np-item { font-size: 0.72rem; color: var(--ink-light); font-weight: 300; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-item strong { color: var(--ink); font-weight: 500; }
+
+hr.divider { border: none; border-top: 1px solid var(--border); max-width: 1100px; margin: 0 auto; }
+section { max-width: 1100px; margin: 0 auto; padding: 6rem 4rem; position: relative; z-index: 1; }
+.section-label { font-size: 0.68rem; font-weight: 500; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+.section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; color: var(--ink); margin-bottom: 3rem; line-height: 1.15; }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.about-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+.about-bullets li { font-size: 0.95rem; color: var(--ink-light); font-weight: 300; display: flex; align-items: flex-start; gap: 0.65rem; line-height: 1.5; }
+.about-bullets li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); margin-top: 0.55rem; flex-shrink: 0; }
+.about-bullets li strong { color: var(--ink); font-weight: 500; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag { font-size: 0.73rem; padding: 0.25rem 0.65rem; background: var(--amber-bg); color: var(--amber); border-radius: 100px; border: 1px solid #3A2A10; }
+.stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.stat-card { background: var(--sand); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-align: center; cursor: none; }
+.stat-num { font-family: var(--serif); font-size: 2.2rem; color: var(--amber); line-height: 1; margin-bottom: 0.2rem; }
+.stat-label { font-size: 0.72rem; color: var(--warm-gray); letter-spacing: 0.07em; text-transform: uppercase; }
+
+/* ── EXPERIENCE TIMELINE ── */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--amber) 8%, var(--amber) 92%, transparent); opacity: 0.4; }
+.exp-item { position: relative; padding: 0 0 2.5rem 2rem; }
+.exp-item:last-child { padding-bottom: 0; }
+.exp-item::before { content: ''; position: absolute; left: -4.5px; top: 0.35rem; width: 9px; height: 9px; border-radius: 50%; background: var(--amber); border: 2px solid var(--cream); box-shadow: 0 0 0 3px rgba(232,148,58,0.2); }
+.exp-date { font-size: 0.78rem; color: var(--warm-gray); margin-bottom: 0.15rem; }
+.exp-type { display: inline-block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+.exp-content h3 { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.15rem; }
+.exp-org { font-size: 0.875rem; color: var(--warm-gray); margin-bottom: 0.6rem; font-weight: 300; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.exp-tag { font-size: 0.7rem; padding: 0.2rem 0.55rem; background: var(--sand); color: var(--ink-light); border-radius: 100px; border: 1px solid var(--border); }
+
+/* ── PROJECTS ── */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.project-card { background: var(--sand); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color 0.25s, transform 0.25s; display: flex; flex-direction: column; cursor: none; }
+.project-card:hover { border-color: var(--amber); transform: translateY(-4px); }
+.project-icon { width: 36px; height: 36px; background: var(--amber-bg); border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 1px solid #3A2A10; }
+.project-icon svg { width: 17px; height: 17px; stroke: var(--amber); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.project-card h3 { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
+.project-blurb { font-size: 0.82rem; color: var(--warm-gray); font-style: italic; margin-bottom: 0.6rem; }
+.project-kws { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 1rem; }
+.kw { font-size: 0.7rem; padding: 0.2rem 0.55rem; background: var(--cream); color: var(--warm-gray); border-radius: 100px; border: 1px solid var(--border); }
+.project-more { margin-top: 0.85rem; font-size: 0.72rem; color: var(--amber); border: none; background: none; cursor: none; padding: 0; letter-spacing: 0.04em; transition: opacity 0.2s; display: flex; align-items: center; gap: 0.3rem; }
+.project-more:hover { opacity: 0.7; }
+
+/* ── SKILLS ── */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+.skill-group h4 { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem; }
+.skill-group ul { list-style: none; }
+.skill-group ul li { font-size: 0.875rem; color: var(--ink-light); font-weight: 300; padding: 0.3rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+.skill-group ul li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+/* ── CONTACT ── */
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.open-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 500; color: #2d7a3a; background: #edf7ee; border: 1px solid #b8debb; border-radius: 100px; padding: 0.3rem 0.85rem; margin-bottom: 1.25rem; }
+.open-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #2d7a3a; display: block; }
+.contact-left p { font-size: 0.95rem; color: var(--ink-light); font-weight: 300; line-height: 1.75; margin-bottom: 1.75rem; }
+.contact-links { display: flex; flex-direction: column; gap: 0.65rem; }
+.contact-link { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; color: var(--ink-light); text-decoration: none; transition: color 0.2s; cursor: none; }
+.contact-link:hover { color: var(--amber); }
+.contact-link-icon { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.2s; }
+.contact-link:hover .contact-link-icon { border-color: var(--amber); }
+.contact-link-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-light); }
+.form-group input, .form-group textarea { font-family: var(--sans); font-size: 0.875rem; font-weight: 300; color: var(--ink); background: #1A1A1A; border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.9rem; outline: none; transition: border-color 0.2s; resize: none; cursor: text; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--amber); }
+.form-submit { font-family: var(--sans); font-size: 0.875rem; font-weight: 500; color: #fff; background: #1A1A1A; border: 1px solid var(--border); padding: 0.75rem 2rem; border-radius: 100px; cursor: none; transition: background 0.2s; align-self: flex-start; }
+.form-submit:hover { background: #333; }
+.form-status { font-size: 0.78rem; color: var(--warm-gray); margin-top: -0.5rem; min-height: 1.2em; transition: color 0.3s; }
+.form-status.ok { color: #4ade80; }
+.form-status.err { color: #f87171; }
+footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--warm-gray); font-weight: 300; position: relative; z-index: 1; }
+
+/* ── SCROLL REVEALS ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal-scale { opacity: 0; transform: scale(0.93); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* ── PROJECT MODAL ── */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(0,0,0,0.82); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 2rem; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--sand); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; max-width: 600px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; animation: modalIn 0.3s cubic-bezier(0.16,1,0.3,1); }
+@keyframes modalIn { from { opacity: 0; transform: scale(0.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.modal-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--warm-gray); font-size: 1.1rem; cursor: none; transition: color 0.2s; line-height: 1; }
+.modal-close:hover { color: var(--ink); }
+.modal-icon { width: 44px; height: 44px; background: var(--amber-bg); border-radius: 11px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; border: 1px solid #3A2A10; }
+.modal-icon svg { width: 20px; height: 20px; stroke: var(--amber); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.modal-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
+.modal-subtitle { font-size: 0.82rem; color: var(--warm-gray); font-style: italic; margin-bottom: 1.5rem; }
+.modal-section { margin-bottom: 1.25rem; }
+.modal-section h4 { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
+.modal-section p { font-size: 0.9rem; color: var(--ink-light); font-weight: 300; line-height: 1.7; }
+.modal-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.modal-tag { font-size: 0.72rem; padding: 0.25rem 0.65rem; background: var(--cream); color: var(--ink-light); border-radius: 100px; border: 1px solid var(--border); }
+.modal-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.modal-link { font-size: 0.8rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 100px; text-decoration: none; transition: all 0.2s; cursor: none; }
+.modal-link.primary { background: var(--amber); color: #0F0F0F; }
+.modal-link.primary:hover { background: #d4812e; }
+.modal-link.outline { border: 1px solid var(--border); color: var(--ink-light); }
+.modal-link.outline:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── RESUME MODAL ── */
+#resume-modal .modal-box { max-width: 760px; }
+.resume-preview { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; margin-top: 1rem; }
+.resume-preview h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.2rem; }
+.resume-preview .res-sub { font-size: 0.8rem; color: var(--warm-gray); margin-bottom: 1.5rem; }
+.resume-section { margin-bottom: 1.25rem; }
+.resume-section h4 { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; margin-bottom: 0.6rem; }
+.resume-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.15rem; }
+.resume-row span { font-size: 0.82rem; color: var(--ink-light); }
+.resume-row strong { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
+.resume-row em { font-size: 0.75rem; color: var(--warm-gray); font-style: normal; }
+
+/* ── AI CHAT WIDGET ── */
+#chat-btn { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 200; background: var(--amber); color: #0F0F0F; border: none; border-radius: 100px; padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; cursor: none; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 24px rgba(232,148,58,0.3); transition: all 0.2s; letter-spacing: 0.02em; }
+#chat-btn:hover { background: #d4812e; transform: translateX(-50%) translateY(-2px); box-shadow: 0 6px 28px rgba(232,148,58,0.4); }
+#chat-btn svg { width: 13px; height: 13px; fill: none; stroke: #0F0F0F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#chat-panel { position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%); z-index: 300; width: min(460px, calc(100vw - 2rem)); background: var(--sand); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; animation: chatIn 0.3s cubic-bezier(0.16,1,0.3,1); }
+#chat-panel.open { display: flex; }
+@keyframes chatIn { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+.chat-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); }
+.chat-header-left { display: flex; align-items: center; gap: 0.65rem; }
+.chat-avatar { width: 28px; height: 28px; background: var(--amber-bg); border: 1px solid #3A2A10; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+.chat-header-left span { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+.chat-header-left small { font-size: 0.68rem; color: var(--warm-gray); display: block; line-height: 1; }
+#chat-close { background: none; border: none; color: var(--warm-gray); cursor: none; font-size: 1rem; transition: color 0.2s; line-height: 1; }
+#chat-close:hover { color: var(--ink); }
+#chat-messages { height: 280px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; scroll-behavior: smooth; }
+#chat-messages::-webkit-scrollbar { width: 4px; }
+#chat-messages::-webkit-scrollbar-track { background: transparent; }
+#chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.chat-msg { max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.82rem; line-height: 1.55; }
+.chat-msg.bot { background: var(--cream); color: var(--ink-light); border-bottom-left-radius: 3px; align-self: flex-start; }
+.chat-msg.user { background: var(--amber); color: #0F0F0F; border-bottom-right-radius: 3px; align-self: flex-end; font-weight: 400; }
+.chat-msg.typing { display: flex; align-items: center; gap: 4px; padding: 0.75rem 0.9rem; }
+.typing-dot { width: 5px; height: 5px; background: var(--warm-gray); border-radius: 50%; animation: typingBounce 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-5px);} }
+.chat-input-row { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); align-items: center; }
+#chat-input { flex: 1; font-family: var(--sans); font-size: 0.82rem; background: var(--cream); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.75rem; color: var(--ink); outline: none; transition: border-color 0.2s; cursor: text; }
+#chat-input:focus { border-color: var(--amber); }
+#chat-send { background: var(--amber); border: none; border-radius: 7px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: none; flex-shrink: 0; transition: background 0.2s; }
+#chat-send:hover { background: #d4812e; }
+#chat-send svg { width: 13px; height: 13px; fill: none; stroke: #0F0F0F; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-suggestions { display: flex; gap: 0.4rem; flex-wrap: wrap; padding: 0 1rem 0.5rem; }
+.chat-sug { font-size: 0.7rem; padding: 0.3rem 0.7rem; background: var(--cream); border: 1px solid var(--border); border-radius: 100px; color: var(--ink-light); cursor: none; transition: all 0.15s; white-space: nowrap; }
+.chat-sug:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ── CONNECT MODAL ── */
+#connect-modal { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; }
+#connect-modal.open { display: flex; }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+  .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .timeline { padding-left: 1.5rem; }
+  body { cursor: auto; }
+  #cursor, #cursor-ring { display: none; }
+  #chat-btn { bottom: 1rem; }
+  #chat-panel { bottom: 4.5rem; }
+  #now-playing { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Animated background canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Keyboard hint -->
+<div id="kb-hint">press 1–5 to navigate · / to focus contact</div>
+
+<!-- Now Playing -->
+<div id="now-playing">
+  <div class="np-label"><span class="np-dot"></span> Now building</div>
+  <div class="np-item"><strong>ContractForge</strong> — NLP → Smart Contracts</div>
+</div>
+
+<button id="lang-toggle" onclick="toggleLang()">عربي</button>
+
+<nav>
+  <a class="nav-logo" href="#" data-en="Omar Farhan" data-ar="عمر فرحان">Omar Farhan</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="navTo('about'); return false;" data-en="About" data-ar="عني">About</a></li>
+    <li><a href="#" onclick="navTo('experience'); return false;" data-en="Experience" data-ar="الخبرة">Experience</a></li>
+    <li><a href="#" onclick="navTo('projects'); return false;" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+    <li><a href="#" onclick="navTo('skills'); return false;" data-en="Skills" data-ar="المهارات">Skills</a></li>
+    <li><a href="#" onclick="navTo('contact'); return false;" data-en="Contact" data-ar="تواصل">Contact</a></li>
+  </ul>
+  <a class="nav-resume" href="#" onclick="openResumeModal(); return false;" data-en="Resume ↓" data-ar="السيرة الذاتية ↓">Resume ↓</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag" data-en="UC Davis · Class of 2027" data-ar="جامعة كاليفورنيا ديفيس · دفعة ٢٠٢٧">UC Davis · Class of 2027</div>
+  <div id="typewriter-wrap">
+    <span id="typewriter-text"></span><span id="typewriter-cursor"></span>
+    <br /><span style="font-size:0.45em;font-family:var(--sans);font-weight:300;color:var(--warm-gray);letter-spacing:0.02em;">& sometimes barely...</span>
+  </div>
+  <div class="hero-pills">
+    <span class="pill accent" data-en="Data Analyst" data-ar="محلل بيانات">Data Analyst</span>
+    <span class="pill accent" data-en="Blockchain Developer" data-ar="مطور بلوكتشين">Blockchain Developer</span>
+    <span class="pill">Full-Stack</span>
+    <span class="pill">ML / AI</span>
+    <span class="pill">Data Engineering</span>
+    <span class="pill">Smart Contracts</span>
+    <span class="pill">Quant / Trading</span>
+    <span class="pill" data-en="Open to Internships" data-ar="متاح للتدريب">Open to Internships</span>
+  </div>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="https://github.com/omarfc5318" target="_blank" data-en="See my work" data-ar="شاهد أعمالي">See my work</a>
+    <a class="btn-outline" href="#" onclick="document.getElementById('connect-modal').classList.add('open'); return false;" data-en="Let's connect" data-ar="تواصل معي">Let's connect</a>
+  </div>
+</div>
+
+<!-- ── CONNECT MODAL ── -->
+<div id="connect-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;padding:2rem 2.5rem;max-width:360px;width:90%;position:relative;">
+    <button onclick="document.getElementById('connect-modal').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#888;font-size:1.2rem;cursor:none;line-height:1;">✕</button>
+    <p style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:#F0EDE8;margin-bottom:1.5rem;" data-en="Let's connect." data-ar="لنتواصل.">Let's connect.</p>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <a href="https://linkedin.com/in/omar-farhan-of" target="_blank" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:#B0ADA8;font-size:0.875rem;" onmouseover="this.style.color='#E8943A'" onmouseout="this.style.color='#B0ADA8'">
+        <span style="width:32px;height:32px;border:1px solid #2A2A2A;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
+        LinkedIn
+      </a>
+      <a href="https://github.com/omarfc5318" target="_blank" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:#B0ADA8;font-size:0.875rem;" onmouseover="this.style.color='#E8943A'" onmouseout="this.style.color='#B0ADA8'">
+        <span style="width:32px;height:32px;border:1px solid #2A2A2A;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
+        GitHub
+      </a>
+      <a href="mailto:ofarhan@ucdavis.edu" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:#B0ADA8;font-size:0.875rem;" onmouseover="this.style.color='#E8943A'" onmouseout="this.style.color='#B0ADA8'">
+        <span style="width:32px;height:32px;border:1px solid #2A2A2A;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+        Email
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── RESUME MODAL ── -->
+<div id="resume-modal" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('resume-modal').classList.remove('open')">✕</button>
+    <h2 class="modal-title">Omar Farhan</h2>
+    <p class="modal-subtitle" style="font-style:normal;color:var(--warm-gray);font-size:0.82rem;margin-bottom:1.5rem;">ofarhan@ucdavis.edu · linkedin.com/in/omar-farhan-of · Davis, CA</p>
+    <div class="resume-preview">
+      <div class="resume-section">
+        <h4>Education</h4>
+        <div class="resume-row"><strong>UC Davis</strong><em>Jun 2027</em></div>
+        <div class="resume-row"><span>B.S. Data Science + B.A. Economics · Minor: Technology Management</span></div>
+      </div>
+      <div class="resume-section">
+        <h4>Experience</h4>
+        <div class="resume-row"><strong>Undergraduate Research Assistant — ExpoLab / UC Davis</strong><em>Apr 2026–Present</em></div>
+        <div class="resume-row"><span>ResilientDB · Blockchain · Distributed Systems · ContractForge</span></div>
+        <br/>
+        <div class="resume-row"><strong>Data Analyst Intern — ZestOps, Lyon</strong><em>Jun–Sep 2025</em></div>
+        <div class="resume-row"><span>ETL · 100K+ Records · AWS S3 · Snowflake · Record Linkage</span></div>
+        <br/>
+        <div class="resume-row"><strong>Founder — Hala</strong><em>Dec 2025–Present</em></div>
+        <div class="resume-row"><span>Flutter · Google Places API · MENA markets · Team of 6</span></div>
+      </div>
+      <div class="resume-section">
+        <h4>Leadership</h4>
+        <div class="resume-row"><span>President — MSA · VP — Data Science Club · Regional Dir — Manara West</span></div>
+        <div class="resume-row"><span>Incoming President — Muslim Tech Collaborative · ASUCD Intl. Committee</span></div>
+      </div>
+      <div class="resume-section">
+        <h4>Skills</h4>
+        <div class="resume-row"><span>Python · SQL · R · Solidity · JavaScript · Dart/Flutter · Snowflake · AWS</span></div>
+      </div>
+    </div>
+    <div class="modal-links">
+      <a href="#" class="modal-link primary" onclick="alert('Link your actual resume PDF here!'); return false;">Download PDF ↓</a>
+      <a href="https://linkedin.com/in/omar-farhan-of" target="_blank" class="modal-link outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECT MODALS ── -->
+<div id="modal-quant" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-quant').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+    <h2 class="modal-title">AI Quant Wealth Management</h2>
+    <p class="modal-subtitle">Institutional-grade portfolio platform · LLM + Quant + ML</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A full-stack portfolio management system combining large language models with traditional quantitative finance. Built to institutional-grade standards with dynamic asset allocation, risk attribution, and natural language portfolio Q&A powered by the Anthropic API.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Key Features</h4>
+      <p>Hidden Markov Model regime detection · SHAP-based explainability for ML signals · CVX portfolio optimization under real constraints · News sentiment integration via NewsAPI · Streamlit dashboard with live P&L attribution.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Anthropic API</span><span class="modal-tag">SHAP</span><span class="modal-tag">cvxpy</span><span class="modal-tag">HMM Regime</span><span class="modal-tag">XGBoost</span><span class="modal-tag">Streamlit</span><span class="modal-tag">PostgreSQL</span><span class="modal-tag">NewsAPI</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-arb" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-arb').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+    <h2 class="modal-title">Statistical Arbitrage Engine</h2>
+    <p class="modal-subtitle">Pairs Trading · S&P 500 ETFs · Sharpe 2.01</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A systematic pairs trading strategy built on cointegration testing and Kalman Filter dynamic hedge ratio estimation. Applied to S&P 500 sector ETFs with HMM regime switching to avoid trading in unfavorable market conditions. Achieved a Sharpe ratio of 2.01 in backtesting.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Methodology</h4>
+      <p>Engle-Granger cointegration tests for pair selection · Kalman Filter for time-varying hedge ratios · Fama-French 3-factor alpha attribution · Regime-conditioned position sizing · Streamlit interactive backtest dashboard.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Kalman Filter</span><span class="modal-tag">HMM Regime</span><span class="modal-tag">Cointegration</span><span class="modal-tag">Streamlit</span><span class="modal-tag">Fama-French</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-contractforge" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-contractforge').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+    <h2 class="modal-title">ContractForge</h2>
+    <p class="modal-subtitle">NLP → Smart Contract · ResilientDB Deployment</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A full-stack chatbot that generates and deploys Solidity smart contracts from plain-English descriptions. Integrated with ResilientDB's blockchain infrastructure at UC Davis ExpoLab. Uses the DeepSeek API with few-shot learning for high-quality contract generation.</p>
+    </div>
+    <div class="modal-section">
+      <h4>How It Works</h4>
+      <p>User describes their contract in natural language → Few-shot prompting selects the best template → DeepSeek generates Solidity → Contract is validated, compiled, and deployed to ResilientDB. Full-stack interface built for non-technical users.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">ResilientDB</span><span class="modal-tag">DeepSeek API</span><span class="modal-tag">Few-Shot Learning</span><span class="modal-tag">Solidity</span><span class="modal-tag">Full-Stack</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-hala" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-hala').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+    <h2 class="modal-title">Hala — هلا</h2>
+    <p class="modal-subtitle">Restaurant Social App · Dubai · Riyadh · Jeddah · Doha</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A Beli-style social restaurant discovery app targeting the Middle Eastern market. Built for food-obsessed users in Dubai, Riyadh, Jeddah, and Doha — where restaurant culture is central to social life but no great discovery product exists yet.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Why Hala</h4>
+      <p>The MENA food market is underserved by Western apps that ignore local cuisine categories, Arabic content, and social eating dynamics. Hala is built natively for the region with Arabic-first UX, local recommendation logic, and social features around gathering.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Flutter</span><span class="modal-tag">Google Places API</span><span class="modal-tag">Data Pipelines</span><span class="modal-tag">Recommendation System</span><span class="modal-tag">Team of 6</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link outline">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-nba" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-nba').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <h2 class="modal-title">NBA Injury Prediction</h2>
+    <p class="modal-subtitle">AUC 0.956 · 88% Accuracy · 11K+ Records</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A machine learning system that predicts NBA player injuries using historical game logs, workload trends, and biometric data. Trained on 11,000+ player-season records with class imbalance handled via SMOTE oversampling.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Results</h4>
+      <p>XGBoost ensemble achieved AUC of 0.956 and 88% accuracy on holdout data. Random Forest baseline for comparison. Engineered features include rolling fatigue scores, back-to-back game flags, and positional stress metrics.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">XGBoost</span><span class="modal-tag">Random Forest</span><span class="modal-tag">SMOTE</span><span class="modal-tag">scikit-learn</span><span class="modal-tag">Feature Engineering</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-lstore" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-lstore').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+    <h2 class="modal-title">L-Store Database System</h2>
+    <p class="modal-subtitle">Columnar Storage · Buffer Pool · Query Engine</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A from-scratch implementation of an L-Store database engine in Python, featuring columnar storage, a buffer pool manager, B-tree indexing, and versioned multi-query support. Built for ECS 165A at UC Davis.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Architecture</h4>
+      <p>Lineage-based storage separates base and tail records for efficient updates · Buffer pool with LRU eviction · B+ tree secondary indexes · Merge operations for compaction · Full SELECT/INSERT/UPDATE/DELETE support.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">Columnar DB</span><span class="modal-tag">Indexing</span><span class="modal-tag">Versioned Queries</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-solidity" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-solidity').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+    <h2 class="modal-title">Solidity Smart Contracts</h2>
+    <p class="modal-subtitle">Token Creation · Wallets · Web3.js</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A collection of Solidity smart contracts covering ERC-20 token creation, multi-signature wallets, and on-chain governance. Includes Web3.js integration for front-end interaction and ABI-based contract management.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Solidity</span><span class="modal-tag">Web3.js</span><span class="modal-tag">ABI</span><span class="modal-tag">Inheritance</span><span class="modal-tag">Mappings</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-steam" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-steam').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+    <h2 class="modal-title">Steam Game Review Analysis</h2>
+    <p class="modal-subtitle">What makes a game well-reviewed? · Top 1000 Steam games</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>An end-to-end data pipeline and analysis project exploring the factors that drive positive Steam reviews. Scraped 1,000+ games using the Steam API and SteamSpy, built a relational SQLite database, and performed sentiment analysis on user reviews.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Key Findings</h4>
+      <p>Playtime distribution, price point, and developer response rate were among the strongest predictors of positive review ratios. NLP sentiment scores correlated strongly with overall rating despite being derived independently.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">Python</span><span class="modal-tag">SQLite</span><span class="modal-tag">BeautifulSoup</span><span class="modal-tag">Steam API</span><span class="modal-tag">SteamSpy</span><span class="modal-tag">Matplotlib</span><span class="modal-tag">Sentiment Analysis</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI CHAT WIDGET ── -->
+<button id="chat-btn" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  Ask my portfolio
+</button>
+
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <span>Omar's Portfolio AI</span>
+        <small>powered by Claude</small>
+      </div>
+    </div>
+    <button id="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div id="chat-messages">
+    <div class="chat-msg bot">Hey! I'm an AI that knows everything about Omar. Ask me about his projects, experience, or skills 👋</div>
+  </div>
+  <div class="chat-suggestions">
+    <button class="chat-sug" onclick="sendSuggestion(this)">What's ContractForge?</button>
+    <button class="chat-sug" onclick="sendSuggestion(this)">What internships has he done?</button>
+    <button class="chat-sug" onclick="sendSuggestion(this)">Best project for a data role?</button>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Ask anything about Omar..." onkeydown="if(event.key==='Enter')sendChat()" />
+    <button id="chat-send" onclick="sendChat()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<section id="about">
+  <div class="section-label reveal" data-en="About" data-ar="عني">About</div>
+  <h2 class="section-title reveal" data-en="Built different." data-ar="مختلف بطبعه.">Built different.</h2>
+  <div class="about-grid">
+    <div class="reveal-left">
+      <ul class="about-bullets">
+        <li><strong data-en="Double Major" data-ar="تخصص مزدوج">Double Major</strong> — <span data-en="Data Science + Economics, Minor in Tech Management" data-ar="علم البيانات + الاقتصاد، تخصص فرعي في إدارة التكنولوجيا">Data Science + Economics, Minor in Tech Management</span></li>
+        <li><strong data-en="Data Engineer" data-ar="مهندس بيانات">Data Engineer</strong> — <span data-en="100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon" data-ar="خطوط أنابيب بيانات لأكثر من ١٠٠ ألف سجل، معمارية برونز/فضة/ذهب · ZestOps، ليون">100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon</span></li>
+        <li><strong data-en="Blockchain Researcher" data-ar="باحث بلوكتشين">Blockchain Researcher</strong> — <span data-en="ResilientDB @ ExpoLab, UC Davis" data-ar="ResilientDB في ExpoLab، جامعة كاليفورنيا ديفيس">ResilientDB @ ExpoLab, UC Davis</span></li>
+        <li><strong data-en="Leadership" data-ar="قيادة">Leadership</strong> — <span data-en="Pres - MSA · Vice Pres - Data Science Club · Exec Member - Davis Economic Collective · Regional Director - Manara West" data-ar="رئيس - رابطة الطلاب المسلمين · نائب رئيس - نادي علم البيانات · عضو تنفيذي - مجموعة ديفيس الاقتصادية · مدير إقليمي - منارة الغرب">Pres - MSA · Vice Pres - Data Science Club · Exec Member - Davis Economic Collective · Regional Director - Manara West</span></li>
+        <li><strong data-en="Founder" data-ar="مؤسس">Founder</strong> — <span data-en="Hala · restaurant discovery app" data-ar="هلا · تطبيق اكتشاف المطاعم">Hala · restaurant discovery app</span></li>
+        <li><strong data-en="Trader" data-ar="متداول">Trader</strong> — <span data-en="8,400% return · crypto &amp; forex · systematic risk management" data-ar="عائد ٨٤٠٠٪ · العملات الرقمية والفوركس · إدارة المخاطر المنهجية">8,400% return · crypto &amp; forex · systematic risk management</span></li>
+        <li><strong data-en="Student Government" data-ar="حكومة الطلاب">Student Government</strong> — <span data-en="Executive Decision Maker · ASUCD International Student Representative Committee" data-ar="صانع القرار التنفيذي · لجنة تمثيل الطلاب الدوليين">Executive Decision Maker · ASUCD International Student Representative Committee</span></li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag" data-en="Data Engineering" data-ar="هندسة البيانات">Data Engineering</span>
+        <span class="tag">Blockchain</span>
+        <span class="tag">Web3</span>
+        <span class="tag" data-en="Quant Trading" data-ar="التداول الكمي">Quant Trading</span>
+        <span class="tag" data-en="Product" data-ar="منتج">Product</span>
+        <span class="tag">AWS · Snowflake</span>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="stat-row">
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('trading-breakdown');var arrow=document.getElementById('trading-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='200px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+          <div class="stat-num">$50K+</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
+            <div class="stat-label" data-en="Trading Revenue" data-ar="عائد التداول">Trading Revenue</div>
+            <span id="trading-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
+          </div>
+          <div id="trading-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;text-align:left;" onclick="event.stopPropagation()">
+            <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
+              <p style="font-size:0.72rem;color:#B0ADA8;margin-bottom:0.6rem;font-style:italic;" data-en="send me a message and we can go grab food" data-ar="ابعثلي رسالة ونروح ناكل شي">send me a message and we can go grab food</p>
+              <input type="email" placeholder="your email" onclick="event.stopPropagation()" style="width:100%;font-family:'DM Sans',sans-serif;font-size:0.72rem;background:#0F0F0F;border:1px solid #2A2A2A;border-radius:6px;padding:0.4rem 0.6rem;color:#F0EDE8;outline:none;margin-bottom:0.5rem;cursor:text;" />
+              <button onclick="event.stopPropagation();var inp=this.previousElementSibling;if(inp.value){this.textContent='sent 👌';this.style.background='#E8943A';inp.value='';}" style="width:100%;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;background:#1A1A1A;border:1px solid #2A2A2A;border-radius:6px;padding:0.35rem;color:#E8943A;cursor:none;transition:all 0.2s;" data-en="send it" data-ar="أرسل">send it</button>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('exp-breakdown');var arrow=document.getElementById('exp-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='200px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+          <div class="stat-num">9+</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
+            <div class="stat-label" data-en="Months Industry Exp." data-ar="أشهر خبرة مهنية">Months Industry Exp.</div>
+            <span id="exp-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
+          </div>
+          <div id="exp-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;margin-top:0;text-align:left;">
+            <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span>ZestOps · Data Analyst</span><span style="color:#E8943A;font-weight:500;" data-en="3 mo" data-ar="٣ أشهر">3 mo</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span>ExpoLab · Research</span><span style="color:#E8943A;font-weight:500;" data-en="2 mo" data-ar="٢ أشهر">2 mo</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span style="font-style:italic;" data-en="Summer Internship · incoming" data-ar="تدريب صيفي · قادم">Summer Internship · incoming</span><span style="color:#E8943A;font-weight:500;">+3 mo</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.75rem;color:#B0ADA8;"><span data-en="Industry Shadowing" data-ar="مرافقة مهنية">Industry Shadowing</span><span style="color:#E8943A;font-weight:500;" data-en="1 mo" data-ar="شهر">1 mo</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('orgs-breakdown');var arrow=document.getElementById('orgs-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='300px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+          <div class="stat-num">5+</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
+            <div class="stat-label" data-en="Orgs Led" data-ar="منظمات قادها">Orgs Led</div>
+            <span id="orgs-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
+          </div>
+          <div id="orgs-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;text-align:left;">
+            <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Muslim Student Association" data-ar="رابطة الطلاب المسلمين">Muslim Student Association</span><span style="color:#E8943A;font-weight:500;" data-en="President" data-ar="رئيس">President</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Data Science Club" data-ar="نادي علم البيانات">Data Science Club</span><span style="color:#E8943A;font-weight:500;" data-en="Vice President" data-ar="نائب الرئيس">Vice President</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Davis Economics Collective" data-ar="مجموعة ديفيس الاقتصادية">Davis Economics Collective</span><span style="color:#E8943A;font-weight:500;" data-en="Exec Member" data-ar="عضو تنفيذي">Exec Member</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span>Manara West</span><span style="color:#E8943A;font-weight:500;" data-en="Regional Director" data-ar="مدير إقليمي">Regional Director</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="ASUCD Intl. Student Committee" data-ar="لجنة الطلاب الدوليين">ASUCD Intl. Student Committee</span><span style="color:#E8943A;font-weight:500;" data-en="Exec Decision Maker" data-ar="صانع قرار تنفيذي">Exec Decision Maker</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.72rem;color:#B0ADA8;"><span data-en="Muslim Tech Collaborative" data-ar="تجمع المسلمين في التكنولوجيا">Muslim Tech Collaborative</span><span style="color:#E8943A;font-weight:500;" data-en="Incoming President" data-ar="رئيس قادم">Incoming President</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('lang-breakdown');var arrow=document.getElementById('lang-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='300px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+          <div class="stat-num">4</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
+            <div class="stat-label" data-en="Languages Spoken" data-ar="لغات يتقنها">Languages Spoken</div>
+            <span id="lang-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
+          </div>
+          <div id="lang-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;text-align:left;">
+            <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span>English</span><span style="color:#E8943A;font-weight:500;">Native</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span>Arabic</span><span style="color:#E8943A;font-weight:500;">Native</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span>Malayalam</span><span style="color:#E8943A;font-weight:500;">Fluent</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.72rem;color:#B0ADA8;"><span>Urdu</span><span style="color:#E8943A;font-weight:500;">Professional</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="experience">
+  <div class="section-label reveal" data-en="Experience" data-ar="الخبرة">Experience</div>
+  <h2 class="section-title reveal" data-en="Where I've made moves." data-ar="أين تركت بصمتي.">Where I've made moves.</h2>
+
+  <div class="timeline">
+    <div class="exp-item reveal">
+      <div class="exp-date">Apr 2026 – Present</div>
+      <span class="exp-type" data-en="Research" data-ar="بحث">Research</span>
+      <div class="exp-content">
+        <h3 data-en="Undergraduate Research Assistant" data-ar="مساعد بحثي جامعي">Undergraduate Research Assistant</h3>
+        <div class="exp-org">ExpoLab / UC Davis</div>
+        <div class="exp-tags"><span class="exp-tag">ResilientDB</span><span class="exp-tag">Blockchain</span><span class="exp-tag">Distributed Systems</span><span class="exp-tag">Full-Stack</span><span class="exp-tag">Scalability</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Dec 2025 – Present</div>
+      <span class="exp-type" data-en="Founder" data-ar="مؤسس">Founder</span>
+      <div class="exp-content">
+        <h3 data-en="Founder &amp; Developer — Hala" data-ar="مؤسس ومطور — هلا">Founder &amp; Developer — Hala</h3>
+        <div class="exp-org" data-en="Restaurant Discovery App · Dubai · Riyadh · Jeddah · Doha" data-ar="تطبيق اكتشاف المطاعم · دبي · الرياض · جدة · الدوحة">Restaurant Discovery App · Dubai · Riyadh · Jeddah · Doha</div>
+        <div class="exp-tags"><span class="exp-tag">Flutter</span><span class="exp-tag">Google Places API</span><span class="exp-tag">Data Pipelines</span><span class="exp-tag">Recommendation System</span><span class="exp-tag" data-en="Team of 6" data-ar="فريق من ٦">Team of 6</span><span class="exp-tag">MENA Markets</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Jun – Sep 2025</div>
+      <span class="exp-type" data-en="Internship" data-ar="تدريب">Internship</span>
+      <div class="exp-content">
+        <h3 data-en="Data Analyst Intern" data-ar="متدرب محلل بيانات">Data Analyst Intern</h3>
+        <div class="exp-org" data-en="ZestOps · Lyon, France" data-ar="ZestOps · ليون، فرنسا">ZestOps · Lyon, France</div>
+        <div class="exp-tags"><span class="exp-tag">ETL Pipelines</span><span class="exp-tag">100K+ Records</span><span class="exp-tag">AWS S3</span><span class="exp-tag">Snowflake</span><span class="exp-tag">Python · SQL</span><span class="exp-tag">Vision Model</span><span class="exp-tag">Record Linkage</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Sep 2021 – Present</div>
+      <span class="exp-type" data-en="Trading" data-ar="تداول">Trading</span>
+      <div class="exp-content">
+        <h3 data-en="Independent Crypto &amp; Forex Trader" data-ar="متداول مستقل في العملات الرقمية والفوركس">Independent Crypto &amp; Forex Trader</h3>
+        <div class="exp-org">Binance · Quotex · TradingView</div>
+        <div class="exp-tags"><span class="exp-tag">8,400% Return</span><span class="exp-tag">Technical Analysis</span><span class="exp-tag">Risk Management</span><span class="exp-tag">Fibonacci</span><span class="exp-tag">Candlestick Patterns</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="projects">
+  <div class="section-label reveal" data-en="Projects" data-ar="المشاريع">Projects</div>
+  <h2 class="section-title reveal" data-en="Things I've shipped." data-ar="ما بنيته وأطلقته.">Things I've shipped.</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-quant').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+      <h3 data-en="AI Quant Wealth Management System" data-ar="نظام إدارة الثروات الكمي بالذكاء الاصطناعي">AI Quant Wealth Management System</h3>
+      <p class="project-blurb" data-en="Institutional-grade portfolio platform · LLM + Quant + ML" data-ar="منصة محافظ بمستوى مؤسسي · نماذج لغوية + تحليل كمي + تعلم آلي">Institutional-grade portfolio platform · LLM + Quant + ML</p>
+      <div class="project-kws"><span class="kw">Anthropic API</span><span class="kw">SHAP</span><span class="kw">cvxpy</span><span class="kw">HMM Regime</span><span class="kw">XGBoost</span><span class="kw">Streamlit</span><span class="kw">PostgreSQL</span><span class="kw">NewsAPI</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-arb').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3 data-en="Statistical Arbitrage Engine" data-ar="محرك المراجحة الإحصائية">Statistical Arbitrage Engine</h3>
+      <p class="project-blurb" data-en="Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01" data-ar="تداول الأزواج · صناديق S&amp;P 500 · نسبة شارب ٢.٠١">Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01</p>
+      <div class="project-kws"><span class="kw">Python</span><span class="kw">Kalman Filter</span><span class="kw">HMM Regime</span><span class="kw">Cointegration</span><span class="kw">Streamlit</span><span class="kw">Fama-French</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-contractforge').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+      <h3>ContractForge</h3>
+      <p class="project-blurb" data-en="NLP → Smart Contract · ResilientDB Deployment" data-ar="معالجة لغة طبيعية ← عقد ذكي · نشر على ResilientDB">NLP → Smart Contract · ResilientDB Deployment</p>
+      <div class="project-kws"><span class="kw">ResilientDB</span><span class="kw">DeepSeek API</span><span class="kw">Few-Shot</span><span class="kw">Solidity</span><span class="kw">Full-Stack</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-hala').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+      <h3 data-en="Hala" data-ar="هلا">Hala</h3>
+      <p class="project-blurb" data-en="Restaurant Social App · 4 Cities · MENA" data-ar="تطبيق اجتماعي للمطاعم · ٤ مدن · منطقة الشرق الأوسط">Restaurant Social App · 4 Cities · MENA</p>
+      <div class="project-kws"><span class="kw">Flutter</span><span class="kw">Google Places API</span><span class="kw">Data Pipelines</span><span class="kw">Rec System</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-nba').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <h3 data-en="NBA Injury Prediction" data-ar="التنبؤ بإصابات لاعبي NBA">NBA Injury Prediction</h3>
+      <p class="project-blurb" data-en="AUC 0.956 · 88% Accuracy · 11K+ Records" data-ar="AUC ٠.٩٥٦ · دقة ٨٨٪ · أكثر من ١١ ألف سجل">AUC 0.956 · 88% Accuracy · 11K+ Records</p>
+      <div class="project-kws"><span class="kw">XGBoost</span><span class="kw">Random Forest</span><span class="kw">SMOTE</span><span class="kw">scikit-learn</span><span class="kw">Feature Engineering</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-lstore').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3 data-en="L-Store Database System" data-ar="نظام قاعدة بيانات L-Store">L-Store Database System</h3>
+      <p class="project-blurb" data-en="Columnar Storage · Buffer Pool · Query Engine" data-ar="تخزين عمودي · مجمع ذاكرة مؤقتة · محرك استعلامات">Columnar Storage · Buffer Pool · Query Engine</p>
+      <div class="project-kws"><span class="kw">Python</span><span class="kw">Columnar DB</span><span class="kw">Indexing</span><span class="kw">Versioned Queries</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-solidity').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <h3 data-en="Solidity Smart Contracts" data-ar="عقود Solidity الذكية">Solidity Smart Contracts</h3>
+      <p class="project-blurb" data-en="Token Creation · Wallets · Web3.js" data-ar="إنشاء رموز · محافظ رقمية · Web3.js">Token Creation · Wallets · Web3.js</p>
+      <div class="project-kws"><span class="kw">Solidity</span><span class="kw">Web3.js</span><span class="kw">ABI</span><span class="kw">Inheritance</span><span class="kw">Mappings</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-steam').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3 data-en="Steam Game Review Analysis" data-ar="تحليل مراجعات ألعاب Steam">Steam Game Review Analysis</h3>
+      <p class="project-blurb" data-en="What makes a game well-reviewed? · Top 1000 Steam games" data-ar="ما الذي يجعل اللعبة تحصل على تقييمات جيدة؟ · أفضل ١٠٠٠ لعبة">What makes a game well-reviewed? · Top 1000 Steam games</p>
+      <div class="project-kws"><span class="kw">Python</span><span class="kw">SQLite</span><span class="kw">BeautifulSoup</span><span class="kw">Steam API</span><span class="kw">SteamSpy</span><span class="kw">Matplotlib</span><span class="kw">Sentiment Analysis</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="skills">
+  <div class="section-label reveal" data-en="Skills" data-ar="المهارات">Skills</div>
+  <h2 class="section-title reveal" data-en="My toolkit." data-ar="أدواتي.">My toolkit.</h2>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <h4 data-en="Languages" data-ar="لغات البرمجة">Languages</h4>
+      <ul><li>Python</li><li>SQL</li><li>R</li><li>Solidity</li><li>JavaScript</li><li>Dart · Flutter</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h4 data-en="Data &amp; ML" data-ar="البيانات والتعلم الآلي">Data &amp; ML</h4>
+      <ul><li>pandas · NumPy</li><li>scikit-learn · XGBoost</li><li>SMOTE · Feature Eng.</li><li>ARIMA · Time Series</li><li>Kalman Filter · HMM</li><li>Matplotlib · Seaborn</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h4 data-en="Data Engineering" data-ar="هندسة البيانات">Data Engineering</h4>
+      <ul><li>ETL Pipelines</li><li>Bronze/Silver/Gold Arch.</li><li>AWS S3</li><li>Snowflake</li><li>Record Linkage</li><li>API Integration</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h4 data-en="Engineering &amp; Other" data-ar="هندسة وأخرى">Engineering &amp; Other</h4>
+      <ul><li>ResilientDB · Blockchain</li><li>Web3.js · REST APIs</li><li>Git · GitHub</li><li>Streamlit</li><li>SQLite · PostgreSQL</li><li>Web Scraping</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h4 data-en="Spoken Languages" data-ar="اللغات المنطوقة">Spoken Languages</h4>
+      <ul>
+        <li data-en="English — Native" data-ar="الإنجليزية — لغة أم">English — Native</li>
+        <li data-en="Arabic — Native" data-ar="العربية — لغة أم">Arabic — Native</li>
+        <li data-en="Malayalam — Fluent" data-ar="المالايالامية — طليق">Malayalam — Fluent</li>
+        <li data-en="Urdu — Professional" data-ar="الأردية — مهني">Urdu — Professional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section id="contact">
+  <div class="section-label reveal" data-en="Contact" data-ar="تواصل">Contact</div>
+  <h2 class="section-title reveal" data-en="Let's build something." data-ar="لنبني شيئاً معاً.">Let's build something.</h2>
+  <div class="contact-inner">
+    <div class="reveal-left">
+      <div class="open-badge" data-en="Open to Summer 2026 Internships" data-ar="متاح لتدريب صيف ٢٠٢٦">Open to Summer 2026 Internships</div>
+      <p data-en="Data Science · Data Engineering · Analytics · Blockchain.<br />If you're building something real, I want in. If not, let's talk anyway." data-ar="علم البيانات · هندسة البيانات · التحليل · Blockchain.<br />إن كنت تبني شيئاً حقيقياً، أنا معك. وإن لم يكن، لنتحدث على أي حال.">Data Science · Data Engineering · Analytics · Blockchain.<br />If you're building something real, I want in. If not, let's talk anyway.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="https://linkedin.com/in/omar-farhan-of" target="_blank">
+          <span class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
+          linkedin.com/in/omar-farhan-of
+        </a>
+        <a class="contact-link" href="mailto:ofarhan@ucdavis.edu">
+          <span class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+          ofarhan@ucdavis.edu
+        </a>
+        <a class="contact-link" href="https://github.com/omarfc5318" target="_blank">
+          <span class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal-right">
+      <div class="form-group"><label data-en="Name" data-ar="الاسم">Name</label><input type="text" id="cname" data-en-placeholder="Your name" data-ar-placeholder="اسمك" placeholder="Your name" /></div>
+      <div class="form-group"><label data-en="Email" data-ar="البريد الإلكتروني">Email</label><input type="email" id="cemail" data-en-placeholder="you@company.com" data-ar-placeholder="بريدك@شركتك.com" placeholder="you@company.com" /></div>
+      <div class="form-group"><label data-en="Message" data-ar="الرسالة">Message</label><textarea id="cmsg" rows="4" data-en-placeholder="What are you working on?" data-ar-placeholder="على ماذا تعمل؟" placeholder="What are you working on?"></textarea></div>
+      <button class="form-submit" onclick="handleSubmit()" data-en="Send message" data-ar="أرسل الرسالة">Send message</button>
+      <div id="form-status" class="form-status"></div>
+    </div>
+  </div>
+</section>
+
+<footer><p data-en="© 2026 Omar Farhan · Davis, CA · Press 1–5 to navigate" data-ar="© ٢٠٢٦ عمر فرحان · ديفيس، كاليفورنيا">© 2026 Omar Farhan · Davis, CA · Press 1–5 to navigate</p></footer>
+
+<script>
+// ── NAV SCROLL ──
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+// ── CURSOR TRAIL ──
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+const TRAIL_COUNT = 10;
+const trail = [];
+
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'trail-dot';
+  document.body.appendChild(dot);
+  trail.push({ el: dot, x: 0, y: 0 });
+}
+
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+  cursorRing.style.left = mouseX + 'px';
+  cursorRing.style.top = mouseY + 'px';
+});
+
+let trailPositions = Array(TRAIL_COUNT).fill({ x: 0, y: 0 });
+function animateTrail() {
+  trailPositions = [{ x: mouseX, y: mouseY }, ...trailPositions.slice(0, TRAIL_COUNT - 1)];
+  trail.forEach((t, i) => {
+    const pos = trailPositions[i] || { x: 0, y: 0 };
+    t.el.style.left = pos.x + 'px';
+    t.el.style.top = pos.y + 'px';
+    t.el.style.opacity = ((TRAIL_COUNT - i) / TRAIL_COUNT) * 0.35;
+    t.el.style.transform = `translate(-50%,-50%) scale(${(TRAIL_COUNT - i) / TRAIL_COUNT})`;
+  });
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+// ── ANIMATED BACKGROUND ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let w, h, dots = [];
+
+function resizeCanvas() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', () => { resizeCanvas(); initDots(); });
+
+function initDots() {
+  dots = [];
+  const count = Math.floor((w * h) / 18000);
+  for (let i = 0; i < count; i++) {
+    dots.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.18, vy: (Math.random() - 0.5) * 0.18,
+      r: Math.random() * 1.2 + 0.3
+    });
+  }
+}
+initDots();
+
+function drawBg() {
+  ctx.clearRect(0, 0, w, h);
+  dots.forEach(d => {
+    d.x += d.vx; d.y += d.vy;
+    if (d.x < 0) d.x = w; if (d.x > w) d.x = 0;
+    if (d.y < 0) d.y = h; if (d.y > h) d.y = 0;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(232,148,58,0.6)';
+    ctx.fill();
+  });
+  // draw lines between close dots
+  for (let i = 0; i < dots.length; i++) {
+    for (let j = i + 1; j < dots.length; j++) {
+      const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 110) {
+        ctx.beginPath();
+        ctx.moveTo(dots[i].x, dots[i].y);
+        ctx.lineTo(dots[j].x, dots[j].y);
+        ctx.strokeStyle = `rgba(232,148,58,${0.12 * (1 - dist / 110)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// ── NOW PLAYING ──
+setTimeout(() => document.getElementById('now-playing').classList.add('loaded'), 800);
+
+// ── TYPEWRITER ──
+const words = ['Data Science.', 'Economics.', 'Blockchain.', 'ML / AI.', 'Building things.'];
+let wIdx = 0, cIdx = 0, deleting = false;
+const twEl = document.getElementById('typewriter-text');
+
+function typewrite() {
+  const word = words[wIdx];
+  if (!deleting) {
+    twEl.textContent = word.slice(0, ++cIdx);
+    if (cIdx === word.length) { deleting = true; setTimeout(typewrite, 1800); return; }
+    setTimeout(typewrite, 85);
+  } else {
+    twEl.textContent = word.slice(0, --cIdx);
+    if (cIdx === 0) { deleting = false; wIdx = (wIdx + 1) % words.length; setTimeout(typewrite, 300); return; }
+    setTimeout(typewrite, 45);
+  }
+}
+typewrite();
+
+// ── LANG TOGGLE ──
+let isArabic = false;
+function toggleLang() {
+  isArabic = !isArabic;
+  const body = document.body;
+  const html = document.documentElement;
+  const btn = document.getElementById('lang-toggle');
+  if (isArabic) {
+    body.classList.add('ar'); html.setAttribute('dir', 'rtl'); html.setAttribute('lang', 'ar'); btn.textContent = 'English';
+  } else {
+    body.classList.remove('ar'); html.setAttribute('dir', 'ltr'); html.setAttribute('lang', 'en'); btn.textContent = 'عربي';
+  }
+  const lang = isArabic ? 'ar' : 'en';
+  document.querySelectorAll('[data-en]').forEach(el => { const val = el.getAttribute('data-' + lang); if (val) el.innerHTML = val; });
+  document.querySelectorAll('[data-en-placeholder]').forEach(el => { el.placeholder = isArabic ? el.getAttribute('data-ar-placeholder') : el.getAttribute('data-en-placeholder'); });
+}
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay || 0);
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el, i) => {
+  el.dataset.delay = i * 60; obs.observe(el);
+});
+
+// ── CONTACT FORM (Formspree) ──
+// Replace YOUR_FORMSPREE_ID below with your actual Formspree endpoint ID
+// Get a free one at formspree.io
+async function handleSubmit() {
+  const n = document.getElementById('cname').value.trim();
+  const e = document.getElementById('cemail').value.trim();
+  const m = document.getElementById('cmsg').value.trim();
+  const status = document.getElementById('form-status');
+  if (!n || !e || !m) { status.textContent = 'Please fill out all fields.'; status.className = 'form-status err'; return; }
+  status.textContent = 'Sending...'; status.className = 'form-status';
+  try {
+    const res = await fetch('https://formspree.io/f/xnjoengq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name: n, email: e, message: m })
+    });
+    if (res.ok) {
+      status.textContent = '✓ Message sent — Omar will get back to you!';
+      status.className = 'form-status ok';
+      document.getElementById('cname').value = '';
+      document.getElementById('cemail').value = '';
+      document.getElementById('cmsg').value = '';
+    } else { throw new Error(); }
+  } catch {
+    status.textContent = '⚠ Something went wrong. Try emailing directly.';
+    status.className = 'form-status err';
+  }
+}
+
+// ── RESUME MODAL ──
+function openResumeModal() { document.getElementById('resume-modal').classList.add('open'); }
+
+// ── KEYBOARD NAV ──
+const sections = ['about', 'experience', 'projects', 'skills', 'contact'];
+const kbHint = document.getElementById('kb-hint');
+let hintTimer;
+document.addEventListener('keydown', (e) => {
+  const n = parseInt(e.key);
+  if (n >= 1 && n <= 5) {
+    navTo(sections[n - 1]);
+    kbHint.classList.add('show');
+    clearTimeout(hintTimer); hintTimer = setTimeout(() => kbHint.classList.remove('show'), 2000);
+  }
+  if (e.key === '/') {
+    e.preventDefault();
+    document.getElementById('cname')?.focus();
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    document.getElementById('chat-panel').classList.remove('open');
+  }
+});
+// Show hint on first scroll
+window.addEventListener('scroll', () => {
+  kbHint.classList.add('show');
+  clearTimeout(hintTimer); hintTimer = setTimeout(() => kbHint.classList.remove('show'), 2500);
+}, { once: true });
+
+// ── AI CHAT ──
+let chatOpen = false;
+const SYSTEM_PROMPT = `You are a portfolio assistant for Omar Farhan, a UC Davis junior (Class of 2027) double majoring in Data Science and Economics with a Minor in Technology Management. Answer questions about Omar in a friendly, concise way (2-4 sentences max). Be helpful to recruiters and curious visitors.
+
+Key facts:
+- Undergraduate Research Assistant at ExpoLab/UC Davis working on ResilientDB blockchain
+- Data Analyst Intern at ZestOps (Lyon, France) — ETL pipelines, 100K+ records, AWS S3, Snowflake
+- Founder of Hala — a restaurant discovery social app for Dubai, Riyadh, Jeddah, Doha (like Beli but for MENA)
+- Project Lead on ContractForge — NLP → Smart Contract chatbot deployed on ResilientDB using DeepSeek API + few-shot learning
+- Built AI Quant Wealth Management System (Anthropic API, SHAP, cvxpy, HMM, XGBoost)
+- Statistical Arbitrage Engine — Pairs Trading, Sharpe 2.01
+- NBA Injury Prediction — AUC 0.956, 88% accuracy, 11K+ records
+- Independent crypto & forex trader since 2021 — $50K+ revenue, 8,400% return
+- Skills: Python, SQL, R, Solidity, JavaScript, Flutter, pandas, scikit-learn, XGBoost, Kalman Filter, ARIMA, ETL, Snowflake, AWS, ResilientDB, Web3.js
+- Leadership: President of MSA, VP of Data Science Club, Incoming President of Muslim Tech Collaborative, Regional Director at Manara West, ASUCD International Student Committee
+- Speaks English (native), Arabic (native), Malayalam (fluent), Urdu (professional)
+- Open to Summer 2026 internships in Data Science, Data Engineering, Analytics, Blockchain
+- LinkedIn: linkedin.com/in/omar-farhan-of
+
+Keep answers short and enthusiastic. If asked about contact, direct to LinkedIn or ofarhan@ucdavis.edu.`;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open', chatOpen);
+  if (chatOpen) document.getElementById('chat-input').focus();
+}
+
+function sendSuggestion(btn) {
+  document.getElementById('chat-input').value = btn.textContent;
+  sendChat();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const msgs = document.getElementById('chat-messages');
+  // User bubble
+  const userBubble = document.createElement('div');
+  userBubble.className = 'chat-msg user';
+  userBubble.textContent = msg;
+  msgs.appendChild(userBubble);
+
+  // Typing indicator
+  const typing = document.createElement('div');
+  typing.className = 'chat-msg bot typing';
+  typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    typing.remove();
+    const botBubble = document.createElement('div');
+    botBubble.className = 'chat-msg bot';
+    botBubble.textContent = data.content?.[0]?.text || "Sorry, I couldn't get a response right now.";
+    msgs.appendChild(botBubble);
+  } catch {
+    typing.remove();
+    const errBubble = document.createElement('div');
+    errBubble.className = 'chat-msg bot';
+    errBubble.textContent = "Having trouble connecting. Try reaching Omar directly via LinkedIn!";
+    msgs.appendChild(errBubble);
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+</body>
+</html>
