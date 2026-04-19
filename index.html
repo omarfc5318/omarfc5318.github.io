@@ -208,42 +208,6 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
 .resume-row strong { font-size: 0.85rem; color: var(--ink); font-weight: 500; }
 .resume-row em { font-size: 0.75rem; color: var(--warm-gray); font-style: normal; }
 
-/* ── AI CHAT WIDGET ── */
-#chat-btn { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 200; background: var(--amber); color: #0F0F0F; border: none; border-radius: 100px; padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; cursor: none; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 24px rgba(232,148,58,0.3); transition: all 0.2s; letter-spacing: 0.02em; }
-#chat-btn:hover { background: #d4812e; transform: translateX(-50%) translateY(-2px); box-shadow: 0 6px 28px rgba(232,148,58,0.4); }
-#chat-btn svg { width: 13px; height: 13px; fill: none; stroke: #0F0F0F; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-#chat-panel { position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%); z-index: 300; width: min(460px, calc(100vw - 2rem)); background: var(--sand); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; animation: chatIn 0.3s cubic-bezier(0.16,1,0.3,1); }
-#chat-panel.open { display: flex; }
-@keyframes chatIn { from { opacity: 0; transform: translateX(-50%) translateY(16px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-.chat-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); }
-.chat-header-left { display: flex; align-items: center; gap: 0.65rem; }
-.chat-avatar { width: 28px; height: 28px; background: var(--amber-bg); border: 1px solid #3A2A10; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
-.chat-header-left span { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
-.chat-header-left small { font-size: 0.68rem; color: var(--warm-gray); display: block; line-height: 1; }
-#chat-close { background: none; border: none; color: var(--warm-gray); cursor: none; font-size: 1rem; transition: color 0.2s; line-height: 1; }
-#chat-close:hover { color: var(--ink); }
-#chat-messages { height: 280px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; scroll-behavior: smooth; }
-#chat-messages::-webkit-scrollbar { width: 4px; }
-#chat-messages::-webkit-scrollbar-track { background: transparent; }
-#chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.chat-msg { max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.82rem; line-height: 1.55; }
-.chat-msg.bot { background: var(--cream); color: var(--ink-light); border-bottom-left-radius: 3px; align-self: flex-start; }
-.chat-msg.user { background: var(--amber); color: #0F0F0F; border-bottom-right-radius: 3px; align-self: flex-end; font-weight: 400; }
-.chat-msg.typing { display: flex; align-items: center; gap: 4px; padding: 0.75rem 0.9rem; }
-.typing-dot { width: 5px; height: 5px; background: var(--warm-gray); border-radius: 50%; animation: typingBounce 1.2s infinite; }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-5px);} }
-.chat-input-row { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); align-items: center; }
-#chat-input { flex: 1; font-family: var(--sans); font-size: 0.82rem; background: var(--cream); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.75rem; color: var(--ink); outline: none; transition: border-color 0.2s; cursor: text; }
-#chat-input:focus { border-color: var(--amber); }
-#chat-send { background: var(--amber); border: none; border-radius: 7px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: none; flex-shrink: 0; transition: background 0.2s; }
-#chat-send:hover { background: #d4812e; }
-#chat-send svg { width: 13px; height: 13px; fill: none; stroke: #0F0F0F; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.chat-suggestions { display: flex; gap: 0.4rem; flex-wrap: wrap; padding: 0 1rem 0.5rem; }
-.chat-sug { font-size: 0.7rem; padding: 0.3rem 0.7rem; background: var(--cream); border: 1px solid var(--border); border-radius: 100px; color: var(--ink-light); cursor: none; transition: all 0.15s; white-space: nowrap; }
-.chat-sug:hover { border-color: var(--amber); color: var(--amber); }
-
 /* ── CONNECT MODAL ── */
 #connect-modal { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; }
 #connect-modal.open { display: flex; }
@@ -255,8 +219,6 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   .timeline { padding-left: 1.5rem; }
   body { cursor: auto; }
   #cursor, #cursor-ring { display: none; }
-  #chat-btn { bottom: 1rem; }
-  #chat-panel { bottom: 4.5rem; }
   #now-playing { display: none; }
 }
 </style>
@@ -276,7 +238,7 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
 <!-- Now Playing -->
 <div id="now-playing">
   <div class="np-label"><span class="np-dot"></span> Now building</div>
-  <div class="np-item"><strong>ContractForge</strong> — NLP → Smart Contracts</div>
+  <div class="np-item"><strong>RFIE</strong> — Recursive Financial Intelligence Engine</div>
 </div>
 
 <button id="lang-toggle" onclick="toggleLang()">عربي</button>
@@ -362,7 +324,7 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
       </div>
       <div class="resume-section">
         <h4>Leadership</h4>
-        <div class="resume-row"><span>President — MSA · VP — Data Science Club · Regional Dir — Manara West</span></div>
+        <div class="resume-row"><span>President — MSA · VP — Data Science Club · VP — Amal House · Regional Dir — Manara West</span></div>
         <div class="resume-row"><span>Incoming President — Muslim Tech Collaborative · ASUCD Intl. Committee</span></div>
       </div>
       <div class="resume-section">
@@ -395,6 +357,30 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
     <div class="modal-section">
       <h4>Stack</h4>
       <div class="modal-tags"><span class="modal-tag">Anthropic API</span><span class="modal-tag">SHAP</span><span class="modal-tag">cvxpy</span><span class="modal-tag">HMM Regime</span><span class="modal-tag">XGBoost</span><span class="modal-tag">Streamlit</span><span class="modal-tag">PostgreSQL</span><span class="modal-tag">NewsAPI</span></div>
+    </div>
+    <div class="modal-links">
+      <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="modal-rfie" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-rfie').classList.remove('open')">✕</button>
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/><circle cx="7" cy="14" r="1.5"/><circle cx="11" cy="10" r="1.5"/><circle cx="15" cy="14" r="1.5"/><circle cx="20" cy="8" r="1.5"/></svg></div>
+    <h2 class="modal-title">RFIE — Recursive Financial Intelligence Engine</h2>
+    <p class="modal-subtitle">Self-Adapting Quant System · Meta-Learning · Walk-Forward</p>
+    <div class="modal-section">
+      <h4>Overview</h4>
+      <p>A recursive quant engine that ensembles four specialized base models — XGBoost return predictor, GARCH(1,1) volatility forecaster, HMM regime classifier, and XGBoost drawdown estimator — under a Ridge meta-learner that dynamically reweights each model based on its rolling out-of-sample performance. The system runs as a closed feedback loop across 11 S&amp;P 500 sector ETFs and five FRED macro series.</p>
+    </div>
+    <div class="modal-section">
+      <h4>How It Works</h4>
+      <p>Base models predict return, volatility, regime, and drawdown risk each day → a meta-learner observes rolling IC, rolling PnL, and model disagreement to decide how much to trust each model → a DEAP genetic algorithm evolves new features to keep signals fresh → a cvxpy mean-variance optimizer turns signals into portfolio weights, scaled down under high uncertainty. Walk-forward backtested across 18 monthly windows with strict anti-lookahead guards.</p>
+    </div>
+    <div class="modal-section">
+      <h4>Stack</h4>
+      <div class="modal-tags"><span class="modal-tag">XGBoost</span><span class="modal-tag">GARCH</span><span class="modal-tag">HMM</span><span class="modal-tag">Ridge Meta-Learner</span><span class="modal-tag">DEAP (GA)</span><span class="modal-tag">cvxpy</span><span class="modal-tag">Walk-Forward</span><span class="modal-tag">Streamlit</span><span class="modal-tag">pandas · NumPy</span></div>
     </div>
     <div class="modal-links">
       <a href="https://github.com/omarfc5318" target="_blank" class="modal-link primary">GitHub ↗</a>
@@ -563,39 +549,6 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   </div>
 </div>
 
-<!-- ── AI CHAT WIDGET ── -->
-<button id="chat-btn" onclick="toggleChat()">
-  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  Ask my portfolio
-</button>
-
-<div id="chat-panel">
-  <div class="chat-header">
-    <div class="chat-header-left">
-      <div class="chat-avatar">🤖</div>
-      <div>
-        <span>Omar's Portfolio AI</span>
-        <small>powered by Claude</small>
-      </div>
-    </div>
-    <button id="chat-close" onclick="toggleChat()">✕</button>
-  </div>
-  <div id="chat-messages">
-    <div class="chat-msg bot">Hey! I'm an AI that knows everything about Omar. Ask me about his projects, experience, or skills 👋</div>
-  </div>
-  <div class="chat-suggestions">
-    <button class="chat-sug" onclick="sendSuggestion(this)">What's ContractForge?</button>
-    <button class="chat-sug" onclick="sendSuggestion(this)">What internships has he done?</button>
-    <button class="chat-sug" onclick="sendSuggestion(this)">Best project for a data role?</button>
-  </div>
-  <div class="chat-input-row">
-    <input id="chat-input" type="text" placeholder="Ask anything about Omar..." onkeydown="if(event.key==='Enter')sendChat()" />
-    <button id="chat-send" onclick="sendChat()">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
-  </div>
-</div>
-
 <hr class="divider" />
 
 <section id="about">
@@ -607,10 +560,10 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
         <li><strong data-en="Double Major" data-ar="تخصص مزدوج">Double Major</strong> — <span data-en="Data Science + Economics, Minor in Tech Management" data-ar="علم البيانات + الاقتصاد، تخصص فرعي في إدارة التكنولوجيا">Data Science + Economics, Minor in Tech Management</span></li>
         <li><strong data-en="Data Engineer" data-ar="مهندس بيانات">Data Engineer</strong> — <span data-en="100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon" data-ar="خطوط أنابيب بيانات لأكثر من ١٠٠ ألف سجل، معمارية برونز/فضة/ذهب · ZestOps، ليون">100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon</span></li>
         <li><strong data-en="Blockchain Researcher" data-ar="باحث بلوكتشين">Blockchain Researcher</strong> — <span data-en="ResilientDB @ ExpoLab, UC Davis" data-ar="ResilientDB في ExpoLab، جامعة كاليفورنيا ديفيس">ResilientDB @ ExpoLab, UC Davis</span></li>
-        <li><strong data-en="Leadership" data-ar="قيادة">Leadership</strong> — <span data-en="Pres - MSA · Vice Pres - Data Science Club · Exec Member - Davis Economic Collective · Regional Director - Manara West" data-ar="رئيس - رابطة الطلاب المسلمين · نائب رئيس - نادي علم البيانات · عضو تنفيذي - مجموعة ديفيس الاقتصادية · مدير إقليمي - منارة الغرب">Pres - MSA · Vice Pres - Data Science Club · Exec Member - Davis Economic Collective · Regional Director - Manara West</span></li>
+        <li><strong data-en="Leadership" data-ar="قيادة">Leadership</strong> — <span data-en="Pres - MSA · Vice Pres - Data Science Club · VP - Amal House · Exec Member - Davis Economic Collective · Regional Director - Manara West" data-ar="رئيس - رابطة الطلاب المسلمين · نائب رئيس - نادي علم البيانات · نائب رئيس - دار أمل · عضو تنفيذي - مجموعة ديفيس الاقتصادية · مدير إقليمي - منارة الغرب">Pres - MSA · Vice Pres - Data Science Club · VP - Amal House · Exec Member - Davis Economic Collective · Regional Director - Manara West</span></li>
         <li><strong data-en="Founder" data-ar="مؤسس">Founder</strong> — <span data-en="Hala · restaurant discovery app" data-ar="هلا · تطبيق اكتشاف المطاعم">Hala · restaurant discovery app</span></li>
         <li><strong data-en="Trader" data-ar="متداول">Trader</strong> — <span data-en="8,400% return · crypto &amp; forex · systematic risk management" data-ar="عائد ٨٤٠٠٪ · العملات الرقمية والفوركس · إدارة المخاطر المنهجية">8,400% return · crypto &amp; forex · systematic risk management</span></li>
-        <li><strong data-en="Student Government" data-ar="حكومة الطلاب">Student Government</strong> — <span data-en="Executive Decision Maker · ASUCD International Student Representative Committee" data-ar="صانع القرار التنفيذي · لجنة تمثيل الطلاب الدوليين">Executive Decision Maker · ASUCD International Student Representative Committee</span></li>
+        <li><strong data-en="Student Government" data-ar="حكومة الطلاب">Student Government</strong> — <span data-en="Executive Committee Member · ASUCD International Student Representative Committee" data-ar="عضو اللجنة التنفيذية · لجنة تمثيل الطلاب الدوليين">Executive Committee Member · ASUCD International Student Representative Committee</span></li>
       </ul>
       <div class="tag-list">
         <span class="tag" data-en="Data Engineering" data-ar="هندسة البيانات">Data Engineering</span>
@@ -655,7 +608,7 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
       </div>
       <div class="stat-row">
         <div class="stat-card reveal-scale" onclick="var d=document.getElementById('orgs-breakdown');var arrow=document.getElementById('orgs-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='300px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
-          <div class="stat-num">5+</div>
+          <div class="stat-num">6+</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
             <div class="stat-label" data-en="Orgs Led" data-ar="منظمات قادها">Orgs Led</div>
             <span id="orgs-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
@@ -664,9 +617,10 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
             <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
               <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Muslim Student Association" data-ar="رابطة الطلاب المسلمين">Muslim Student Association</span><span style="color:#E8943A;font-weight:500;" data-en="President" data-ar="رئيس">President</span></div>
               <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Data Science Club" data-ar="نادي علم البيانات">Data Science Club</span><span style="color:#E8943A;font-weight:500;" data-en="Vice President" data-ar="نائب الرئيس">Vice President</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Amal House" data-ar="دار أمل">Amal House</span><span style="color:#E8943A;font-weight:500;" data-en="Vice President" data-ar="نائب الرئيس">Vice President</span></div>
               <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="Davis Economics Collective" data-ar="مجموعة ديفيس الاقتصادية">Davis Economics Collective</span><span style="color:#E8943A;font-weight:500;" data-en="Exec Member" data-ar="عضو تنفيذي">Exec Member</span></div>
               <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span>Manara West</span><span style="color:#E8943A;font-weight:500;" data-en="Regional Director" data-ar="مدير إقليمي">Regional Director</span></div>
-              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="ASUCD Intl. Student Committee" data-ar="لجنة الطلاب الدوليين">ASUCD Intl. Student Committee</span><span style="color:#E8943A;font-weight:500;" data-en="Exec Decision Maker" data-ar="صانع قرار تنفيذي">Exec Decision Maker</span></div>
+              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.72rem;color:#B0ADA8;"><span data-en="ASUCD Intl. Student Committee" data-ar="لجنة الطلاب الدوليين">ASUCD Intl. Student Committee</span><span style="color:#E8943A;font-weight:500;" data-en="Executive Committee Member" data-ar="عضو اللجنة التنفيذية">Executive Committee Member</span></div>
               <div style="display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.72rem;color:#B0ADA8;"><span data-en="Muslim Tech Collaborative" data-ar="تجمع المسلمين في التكنولوجيا">Muslim Tech Collaborative</span><span style="color:#E8943A;font-weight:500;" data-en="Incoming President" data-ar="رئيس قادم">Incoming President</span></div>
             </div>
           </div>
@@ -743,6 +697,14 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   <div class="section-label reveal" data-en="Projects" data-ar="المشاريع">Projects</div>
   <h2 class="section-title reveal" data-en="Things I've shipped." data-ar="ما بنيته وأطلقته.">Things I've shipped.</h2>
   <div class="projects-grid">
+
+    <div class="project-card reveal-scale" onclick="document.getElementById('modal-rfie').classList.add('open')">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/><circle cx="7" cy="14" r="1.5"/><circle cx="11" cy="10" r="1.5"/><circle cx="15" cy="14" r="1.5"/><circle cx="20" cy="8" r="1.5"/></svg></div>
+      <h3 data-en="RFIE — Recursive Financial Intelligence Engine" data-ar="RFIE — محرك الذكاء المالي التكراري">RFIE — Recursive Financial Intelligence Engine</h3>
+      <p class="project-blurb" data-en="Self-Adapting Quant System · Meta-Learning · Walk-Forward" data-ar="نظام كمي ذاتي التكيف · تعلم فوقي · تحقق زمني">Self-Adapting Quant System · Meta-Learning · Walk-Forward</p>
+      <div class="project-kws"><span class="kw">XGBoost</span><span class="kw">GARCH</span><span class="kw">HMM</span><span class="kw">Ridge Meta-Learner</span><span class="kw">DEAP</span><span class="kw">cvxpy</span><span class="kw">Walk-Forward</span></div>
+      <button class="project-more">Case study →</button>
+    </div>
 
     <div class="project-card reveal-scale" onclick="document.getElementById('modal-quant').classList.add('open')">
       <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
@@ -1084,7 +1046,6 @@ document.addEventListener('keydown', (e) => {
   }
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-    document.getElementById('chat-panel').classList.remove('open');
   }
 });
 // Show hint on first scroll
@@ -1093,84 +1054,6 @@ window.addEventListener('scroll', () => {
   clearTimeout(hintTimer); hintTimer = setTimeout(() => kbHint.classList.remove('show'), 2500);
 }, { once: true });
 
-// ── AI CHAT ──
-let chatOpen = false;
-const SYSTEM_PROMPT = `You are a portfolio assistant for Omar Farhan, a UC Davis junior (Class of 2027) double majoring in Data Science and Economics with a Minor in Technology Management. Answer questions about Omar in a friendly, concise way (2-4 sentences max). Be helpful to recruiters and curious visitors.
-
-Key facts:
-- Undergraduate Research Assistant at ExpoLab/UC Davis working on ResilientDB blockchain
-- Data Analyst Intern at ZestOps (Lyon, France) — ETL pipelines, 100K+ records, AWS S3, Snowflake
-- Founder of Hala — a restaurant discovery social app for Dubai, Riyadh, Jeddah, Doha (like Beli but for MENA)
-- Project Lead on ContractForge — NLP → Smart Contract chatbot deployed on ResilientDB using DeepSeek API + few-shot learning
-- Built AI Quant Wealth Management System (Anthropic API, SHAP, cvxpy, HMM, XGBoost)
-- Statistical Arbitrage Engine — Pairs Trading, Sharpe 2.01
-- NBA Injury Prediction — AUC 0.956, 88% accuracy, 11K+ records
-- Independent crypto & forex trader since 2021 — $50K+ revenue, 8,400% return
-- Skills: Python, SQL, R, Solidity, JavaScript, Flutter, pandas, scikit-learn, XGBoost, Kalman Filter, ARIMA, ETL, Snowflake, AWS, ResilientDB, Web3.js
-- Leadership: President of MSA, VP of Data Science Club, Incoming President of Muslim Tech Collaborative, Regional Director at Manara West, ASUCD International Student Committee
-- Speaks English (native), Arabic (native), Malayalam (fluent), Urdu (professional)
-- Open to Summer 2026 internships in Data Science, Data Engineering, Analytics, Blockchain
-- LinkedIn: linkedin.com/in/omar-farhan-of
-
-Keep answers short and enthusiastic. If asked about contact, direct to LinkedIn or ofarhan@ucdavis.edu.`;
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chat-panel').classList.toggle('open', chatOpen);
-  if (chatOpen) document.getElementById('chat-input').focus();
-}
-
-function sendSuggestion(btn) {
-  document.getElementById('chat-input').value = btn.textContent;
-  sendChat();
-}
-
-async function sendChat() {
-  const input = document.getElementById('chat-input');
-  const msg = input.value.trim();
-  if (!msg) return;
-  input.value = '';
-
-  const msgs = document.getElementById('chat-messages');
-  // User bubble
-  const userBubble = document.createElement('div');
-  userBubble.className = 'chat-msg user';
-  userBubble.textContent = msg;
-  msgs.appendChild(userBubble);
-
-  // Typing indicator
-  const typing = document.createElement('div');
-  typing.className = 'chat-msg bot typing';
-  typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-  msgs.appendChild(typing);
-  msgs.scrollTop = msgs.scrollHeight;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: msg }]
-      })
-    });
-    const data = await res.json();
-    typing.remove();
-    const botBubble = document.createElement('div');
-    botBubble.className = 'chat-msg bot';
-    botBubble.textContent = data.content?.[0]?.text || "Sorry, I couldn't get a response right now.";
-    msgs.appendChild(botBubble);
-  } catch {
-    typing.remove();
-    const errBubble = document.createElement('div');
-    errBubble.className = 'chat-msg bot';
-    errBubble.textContent = "Having trouble connecting. Try reaching Omar directly via LinkedIn!";
-    msgs.appendChild(errBubble);
-  }
-  msgs.scrollTop = msgs.scrollHeight;
-}
 </script>
 </body>
 </html>
