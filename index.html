@@ -12,7 +12,12 @@
 <meta property="og:url" content="https://omarfc5318.github.io/" />
 <meta property="og:title" content="Omar Farhan — AI Engineer &amp; Data Scientist" />
 <meta property="og:description" content="AI engineering at Folio3, blockchain research at ExpoLab, and quant, ML, and data engineering projects. Open to 2027 new grad roles." />
+<meta property="og:image" content="https://omarfc5318.github.io/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Omar Farhan — AI Engineering, Data Science, Quant and ML" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://omarfc5318.github.io/og-image.png" />
 <meta name="twitter:title" content="Omar Farhan — AI Engineer &amp; Data Scientist" />
 <meta name="twitter:description" content="AI engineering at Folio3, blockchain research at ExpoLab, and quant, ML, and data engineering projects. Open to 2027 new grad roles." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F0F0F'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23E8943A' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E" />
@@ -179,6 +184,7 @@ section { max-width: 1100px; margin: 0 auto; padding: 6rem 4rem; position: relat
 .project-icon svg { width: 17px; height: 17px; stroke: var(--amber); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .project-card h3 { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; }
 .project-blurb { font-size: 0.82rem; color: var(--warm-gray); font-style: italic; margin-bottom: 0.6rem; }
+.project-metric { font-size: 0.76rem; color: var(--amber); font-weight: 500; line-height: 1.45; margin-bottom: 0.2rem; }
 .project-kws { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 1rem; }
 .kw { font-size: 0.7rem; padding: 0.2rem 0.55rem; background: var(--cream); color: var(--warm-gray); border-radius: 100px; border: 1px solid var(--border); }
 
@@ -242,7 +248,17 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   #cursor, #cursor-ring { display: none; }
   #now-playing { display: none; }
 }
+
+/* Custom cursor is a progressive enhancement: never leave a pointerless page. */
+@media (hover: none), (pointer: coarse) {
+  *, body, a, button, .project-card, .stat-card, .nav-icon, .nav-resume { cursor: auto !important; }
+  #cursor, #cursor-ring { display: none !important; }
+}
 </style>
+<noscript><style>
+  *, body, a, button, .project-card, .stat-card, .nav-icon, .nav-resume { cursor: auto !important; }
+  #cursor, #cursor-ring { display: none !important; }
+</style></noscript>
 </head>
 <body>
 
@@ -284,7 +300,6 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   <div class="hero-tag" data-en="UC Davis · Class of 2027" data-ar="جامعة كاليفورنيا ديفيس · دفعة ٢٠٢٧">UC Davis · Class of 2027</div>
   <div id="typewriter-wrap">
     <span id="typewriter-text"></span><span id="typewriter-cursor"></span>
-    <br /><span style="font-size:0.45em;font-family:var(--sans);font-weight:300;color:var(--warm-gray);letter-spacing:0.02em;">& sometimes barely...</span>
   </div>
   <div class="hero-pills">
     <span class="pill accent" data-en="AI Engineering" data-ar="هندسة الذكاء الاصطناعي">AI Engineering</span>
@@ -482,6 +497,23 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   <div class="section-label reveal" data-en="Projects" data-ar="المشاريع">Projects</div>
   <h2 class="section-title reveal" data-en="Things I've shipped." data-ar="ما بنيته وأطلقته.">Things I've shipped.</h2>
   <div class="projects-grid">
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3 data-en="Statistical Arbitrage Engine" data-ar="محرك المراجحة الإحصائية">Statistical Arbitrage Engine</h3>
+      <p class="project-blurb" data-en="Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01" data-ar="تداول الأزواج · صناديق S&amp;P 500 · نسبة شارب ٢.٠١">Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01</p>
+      <div class="project-metric" data-en="Sharpe 0.69 → 2.01 · win rate 48% → 58% · max drawdown −64%" data-ar="شارب ٠٫٦٩ ← ٢٫٠١ · نسبة الربح ٤٨٪ ← ٥٨٪ · أقصى تراجع −٦٤٪">Sharpe 0.69 → 2.01 · win rate 48% → 58% · max drawdown −64%</div>
+      <div class="project-kws"><span class="kw">Python</span><span class="kw">Kalman Filter</span><span class="kw">HMM Regime</span><span class="kw">Cointegration</span><span class="kw">Streamlit</span><span class="kw">Fama-French</span></div>
+    </div>
+
+
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+      <h3 data-en="AI Quant Wealth Management System" data-ar="نظام إدارة الثروات الكمي بالذكاء الاصطناعي">AI Quant Wealth Management System</h3>
+      <p class="project-blurb" data-en="Institutional-grade portfolio platform · LLM + Quant + ML" data-ar="منصة محافظ بمستوى مؤسسي · نماذج لغوية + تحليل كمي + تعلم آلي">Institutional-grade portfolio platform · LLM + Quant + ML</p>
+      <div class="project-metric" data-en="Constrained optimization, regime-based allocation, live P&amp;L attribution" data-ar="تحسين مقيّد، توزيع حسب النظام السوقي، وإسناد أرباح وخسائر حي">Constrained optimization, regime-based allocation, live P&amp;L attribution</div>
+      <div class="project-kws"><span class="kw">Anthropic API</span><span class="kw">SHAP</span><span class="kw">cvxpy</span><span class="kw">HMM Regime</span><span class="kw">XGBoost</span><span class="kw">Streamlit</span><span class="kw">PostgreSQL</span><span class="kw">NewsAPI</span></div>
+    </div>
+
 
     <div class="project-card reveal-scale wip">
       <div class="wip-tape" aria-hidden="true"><span data-en="Work in progress" data-ar="قيد التطوير">Work in progress</span></div>
@@ -489,70 +521,71 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
       <div class="wip-flag" data-en="Still building" data-ar="قيد البناء">Still building</div>
       <h3 data-en="RFIE — Recursive Financial Intelligence Engine" data-ar="RFIE — محرك الذكاء المالي التكراري">RFIE — Recursive Financial Intelligence Engine</h3>
       <p class="project-blurb" data-en="Self-Adapting Quant System · Meta-Learning · Walk-Forward" data-ar="نظام كمي ذاتي التكيف · تعلم فوقي · تحقق زمني">Self-Adapting Quant System · Meta-Learning · Walk-Forward</p>
+      <div class="project-metric" data-en="4 base models under a Ridge meta-learner · 18 walk-forward windows" data-ar="٤ نماذج أساسية تحت متعلّم فوقي · ١٨ نافذة تحقق زمني">4 base models under a Ridge meta-learner · 18 walk-forward windows</div>
       <div class="project-kws"><span class="kw">XGBoost</span><span class="kw">GARCH</span><span class="kw">HMM</span><span class="kw">Ridge Meta-Learner</span><span class="kw">DEAP</span><span class="kw">cvxpy</span><span class="kw">Walk-Forward</span></div>
     </div>
 
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
-      <h3 data-en="AI Quant Wealth Management System" data-ar="نظام إدارة الثروات الكمي بالذكاء الاصطناعي">AI Quant Wealth Management System</h3>
-      <p class="project-blurb" data-en="Institutional-grade portfolio platform · LLM + Quant + ML" data-ar="منصة محافظ بمستوى مؤسسي · نماذج لغوية + تحليل كمي + تعلم آلي">Institutional-grade portfolio platform · LLM + Quant + ML</p>
-      <div class="project-kws"><span class="kw">Anthropic API</span><span class="kw">SHAP</span><span class="kw">cvxpy</span><span class="kw">HMM Regime</span><span class="kw">XGBoost</span><span class="kw">Streamlit</span><span class="kw">PostgreSQL</span><span class="kw">NewsAPI</span></div>
-    </div>
-
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <h3 data-en="Statistical Arbitrage Engine" data-ar="محرك المراجحة الإحصائية">Statistical Arbitrage Engine</h3>
-      <p class="project-blurb" data-en="Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01" data-ar="تداول الأزواج · صناديق S&amp;P 500 · نسبة شارب ٢.٠١">Pairs Trading · S&amp;P 500 ETFs · Sharpe 2.01</p>
-      <div class="project-kws"><span class="kw">Python</span><span class="kw">Kalman Filter</span><span class="kw">HMM Regime</span><span class="kw">Cointegration</span><span class="kw">Streamlit</span><span class="kw">Fama-French</span></div>
-    </div>
-
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-      <h3>ContractForge</h3>
-      <p class="project-blurb" data-en="NLP → Smart Contract · ResilientDB Deployment" data-ar="معالجة لغة طبيعية ← عقد ذكي · نشر على ResilientDB">NLP → Smart Contract · ResilientDB Deployment</p>
-      <div class="project-kws"><span class="kw">ResilientDB</span><span class="kw">DeepSeek API</span><span class="kw">Few-Shot</span><span class="kw">Solidity</span><span class="kw">Full-Stack</span></div>
-    </div>
 
     <div class="project-card reveal-scale">
       <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
       <h3 data-en="Hala" data-ar="هلا">Hala</h3>
       <p class="project-blurb" data-en="Restaurant Social App · 4 Cities · MENA" data-ar="تطبيق اجتماعي للمطاعم · ٤ مدن · منطقة الشرق الأوسط">Restaurant Social App · 4 Cities · MENA</p>
+      <div class="project-metric" data-en="4 markets · 6-person team · pre-seed fundraising underway" data-ar="٤ أسواق · فريق من ٦ · جولة ما قبل التأسيس جارية">4 markets · 6-person team · pre-seed fundraising underway</div>
       <div class="project-kws"><span class="kw">React Native</span><span class="kw">TypeScript</span><span class="kw">Supabase</span><span class="kw">Google Places API</span><span class="kw">Rec System</span></div>
     </div>
+
+
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+      <h3>ContractForge</h3>
+      <p class="project-blurb" data-en="NLP → Smart Contract · ResilientDB Deployment" data-ar="معالجة لغة طبيعية ← عقد ذكي · نشر على ResilientDB">NLP → Smart Contract · ResilientDB Deployment</p>
+      <div class="project-metric" data-en="Plain English in, compiled Solidity deployed to ResilientDB out" data-ar="وصف بلغة بسيطة، ومخرجات عقود Solidity منشورة على ResilientDB">Plain English in, compiled Solidity deployed to ResilientDB out</div>
+      <div class="project-kws"><span class="kw">ResilientDB</span><span class="kw">DeepSeek API</span><span class="kw">Few-Shot</span><span class="kw">Solidity</span><span class="kw">Full-Stack</span></div>
+    </div>
+
 
     <div class="project-card reveal-scale">
       <div class="project-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
       <h3 data-en="NBA Injury Prediction" data-ar="التنبؤ بإصابات لاعبي NBA">NBA Injury Prediction</h3>
       <p class="project-blurb" data-en="AUC 0.956 · 88% Accuracy · 11K+ Records" data-ar="AUC ٠.٩٥٦ · دقة ٨٨٪ · أكثر من ١١ ألف سجل">AUC 0.956 · 88% Accuracy · 11K+ Records</p>
+      <div class="project-metric" data-en="0.956 AUC · 88% accuracy · 11,000+ player-seasons · 26 features" data-ar="٠٫٩٥٦ AUC · دقة ٨٨٪ · أكثر من ١١٬٠٠٠ موسم لاعب · ٢٦ متغيراً">0.956 AUC · 88% accuracy · 11,000+ player-seasons · 26 features</div>
       <div class="project-kws"><span class="kw">XGBoost</span><span class="kw">Random Forest</span><span class="kw">SMOTE</span><span class="kw">scikit-learn</span><span class="kw">Feature Engineering</span></div>
     </div>
 
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-      <h3 data-en="L-Store Database System" data-ar="نظام قاعدة بيانات L-Store">L-Store Database System</h3>
-      <p class="project-blurb" data-en="Columnar Storage · Buffer Pool · Query Engine" data-ar="تخزين عمودي · مجمع ذاكرة مؤقتة · محرك استعلامات">Columnar Storage · Buffer Pool · Query Engine</p>
-      <div class="project-kws"><span class="kw">Python</span><span class="kw">Columnar DB</span><span class="kw">Indexing</span><span class="kw">Versioned Queries</span></div>
-    </div>
-
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
-      <h3 data-en="Solidity Smart Contracts" data-ar="عقود Solidity الذكية">Solidity Smart Contracts</h3>
-      <p class="project-blurb" data-en="Token Creation · Wallets · Web3.js" data-ar="إنشاء رموز · محافظ رقمية · Web3.js">Token Creation · Wallets · Web3.js</p>
-      <div class="project-kws"><span class="kw">Solidity</span><span class="kw">Web3.js</span><span class="kw">ABI</span><span class="kw">Inheritance</span><span class="kw">Mappings</span></div>
-    </div>
-
-    <div class="project-card reveal-scale">
-      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg></div>
-      <h3 data-en="Real-Time Game System" data-ar="نظام لعبة في الزمن الحقيقي">Real-Time Game System</h3>
-      <p class="project-blurb" data-en="Unreal Engine · C++ · Gameplay Systems" data-ar="Unreal Engine · C++ · أنظمة اللعب">Unreal Engine · C++ · Gameplay Systems</p>
-      <div class="project-kws"><span class="kw">Unreal Engine</span><span class="kw">C++</span><span class="kw">OOP Design</span><span class="kw">HUD Systems</span><span class="kw">Optimization</span></div>
-    </div>
 
     <div class="project-card reveal-scale">
       <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
       <h3 data-en="Steam Game Review Analysis" data-ar="تحليل مراجعات ألعاب Steam">Steam Game Review Analysis</h3>
       <p class="project-blurb" data-en="What makes a game well-reviewed? · Top 1000 Steam games" data-ar="ما الذي يجعل اللعبة تحصل على تقييمات جيدة؟ · أفضل ١٠٠٠ لعبة">What makes a game well-reviewed? · Top 1000 Steam games</p>
+      <div class="project-metric" data-en="1,000+ games ingested · normalized SQLite · review drivers isolated" data-ar="أكثر من ١٠٠٠ لعبة · قاعدة SQLite مُطبّعة · تحديد محركات التقييم">1,000+ games ingested · normalized SQLite · review drivers isolated</div>
       <div class="project-kws"><span class="kw">Python</span><span class="kw">SQLite</span><span class="kw">BeautifulSoup</span><span class="kw">Steam API</span><span class="kw">SteamSpy</span><span class="kw">Matplotlib</span><span class="kw">Sentiment Analysis</span></div>
+    </div>
+
+
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3 data-en="L-Store Database System" data-ar="نظام قاعدة بيانات L-Store">L-Store Database System</h3>
+      <p class="project-blurb" data-en="Columnar Storage · Buffer Pool · Query Engine" data-ar="تخزين عمودي · مجمع ذاكرة مؤقتة · محرك استعلامات">Columnar Storage · Buffer Pool · Query Engine</p>
+      <div class="project-metric" data-en="Columnar storage, buffer pool, B+ tree indexes, versioned queries" data-ar="تخزين عمودي، مجمع ذاكرة، فهارس B+، واستعلامات مؤرشفة">Columnar storage, buffer pool, B+ tree indexes, versioned queries</div>
+      <div class="project-kws"><span class="kw">Python</span><span class="kw">Columnar DB</span><span class="kw">Indexing</span><span class="kw">Versioned Queries</span></div>
+    </div>
+
+
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <h3 data-en="Solidity Smart Contracts" data-ar="عقود Solidity الذكية">Solidity Smart Contracts</h3>
+      <p class="project-blurb" data-en="Token Creation · Wallets · Web3.js" data-ar="إنشاء رموز · محافظ رقمية · Web3.js">Token Creation · Wallets · Web3.js</p>
+      <div class="project-metric" data-en="ERC-20 tokens, multi-sig wallets, on-chain governance" data-ar="رموز ERC-20، محافظ متعددة التواقيع، وحوكمة على السلسلة">ERC-20 tokens, multi-sig wallets, on-chain governance</div>
+      <div class="project-kws"><span class="kw">Solidity</span><span class="kw">Web3.js</span><span class="kw">ABI</span><span class="kw">Inheritance</span><span class="kw">Mappings</span></div>
+    </div>
+
+
+    <div class="project-card reveal-scale">
+      <div class="project-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="9" y1="10" x2="9" y2="14"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg></div>
+      <h3 data-en="Real-Time Game System" data-ar="نظام لعبة في الزمن الحقيقي">Real-Time Game System</h3>
+      <p class="project-blurb" data-en="Unreal Engine · C++ · Gameplay Systems" data-ar="Unreal Engine · C++ · أنظمة اللعب">Unreal Engine · C++ · Gameplay Systems</p>
+      <div class="project-metric" data-en="Full shooter loop — weapons, movement, HUD, game state" data-ar="حلقة لعب كاملة — أسلحة، حركة، واجهة، وحالة اللعبة">Full shooter loop — weapons, movement, HUD, game state</div>
+      <div class="project-kws"><span class="kw">Unreal Engine</span><span class="kw">C++</span><span class="kw">OOP Design</span><span class="kw">HUD Systems</span><span class="kw">Optimization</span></div>
     </div>
 
   </div>
@@ -634,7 +667,7 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   </div>
 </section>
 
-<footer><p data-en="© 2026 Omar Farhan · Davis, CA · Press 1–5 to navigate" data-ar="© ٢٠٢٦ عمر فرحان · ديفيس، كاليفورنيا">© 2026 Omar Farhan · Davis, CA · Press 1–5 to navigate</p></footer>
+<footer><p data-en="© 2026 Omar Farhan · Davis, CA · Updated July 2026 · Press 1–5 to navigate" data-ar="© ٢٠٢٦ عمر فرحان · ديفيس، كاليفورنيا · آخر تحديث يوليو ٢٠٢٦">© 2026 Omar Farhan · Davis, CA · Updated July 2026 · Press 1–5 to navigate</p></footer>
 
 <script>
 // ── NAV SCROLL ──
