@@ -249,6 +249,67 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   #now-playing { display: none; }
 }
 
+
+/* ── Command palette ── */
+.cmdk-overlay { display: none; position: fixed; inset: 0; z-index: 1200; background: rgba(0,0,0,0.78); backdrop-filter: blur(7px); align-items: flex-start; justify-content: center; padding: 12vh 1.5rem 2rem; }
+.cmdk-overlay.open { display: flex; }
+.cmdk-box { width: 100%; max-width: 540px; background: var(--sand); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+#cmdk-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 1.05rem 1.25rem; font-family: var(--sans); font-size: 0.95rem; color: var(--ink); outline: none; cursor: text; }
+#cmdk-input::placeholder { color: var(--warm-gray); }
+#cmdk-list { list-style: none; margin: 0; padding: 0.4rem; max-height: 46vh; overflow-y: auto; }
+#cmdk-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.62rem 0.85rem; border-radius: 8px; font-size: 0.85rem; color: var(--ink-light); cursor: none; }
+#cmdk-list li[aria-selected="true"] { background: var(--amber-bg); color: var(--ink); }
+#cmdk-list li[aria-selected="true"] .cmdk-hint { color: var(--amber); }
+.cmdk-hint { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--warm-gray); flex-shrink: 0; }
+.cmdk-empty { padding: 1.4rem 0.85rem; text-align: center; font-size: 0.82rem; color: var(--warm-gray); }
+.cmdk-foot { display: flex; gap: 1.1rem; padding: 0.6rem 1.25rem; border-top: 1px solid var(--border); font-size: 0.68rem; color: var(--warm-gray); letter-spacing: 0.05em; }
+
+.nav-cmdk { display: inline-flex; align-items: center; gap: 0.45rem; background: transparent; border: 1px solid var(--border); border-radius: 100px; padding: 0.34rem 0.62rem 0.34rem 0.72rem; font-family: var(--sans); font-size: 0.75rem; color: var(--ink-light); cursor: none; transition: border-color 0.2s, color 0.2s; }
+.nav-cmdk:hover { border-color: var(--amber); color: var(--amber); }
+.nav-cmdk svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; flex-shrink: 0; }
+.nav-cmdk kbd { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.02em; background: var(--amber-bg); border: 1px solid #3A2A10; border-radius: 5px; padding: 0.08rem 0.32rem; color: var(--amber); }
+.nav-cmdk:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+@media (max-width: 768px) { .nav-cmdk-label, .nav-cmdk kbd { display: none; } .nav-cmdk { padding: 0.34rem 0.5rem; } }
+
+/* ── Resume chat ── */
+#chat-fab { display: none; position: fixed; bottom: 1.4rem; right: 1.5rem; z-index: 1100; align-items: center; gap: 0.5rem; background: var(--sand); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.05rem; font-family: var(--sans); font-size: 0.78rem; font-weight: 500; color: var(--amber); cursor: none; transition: border-color 0.2s, transform 0.2s; }
+#chat-fab.on { display: flex; }
+#chat-fab:hover { border-color: var(--amber); transform: translateY(-2px); }
+#chat-fab svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.9; }
+#chat-panel { display: none; position: fixed; bottom: 1.4rem; right: 1.5rem; z-index: 1101; width: 370px; max-width: calc(100vw - 3rem); height: 480px; max-height: calc(100vh - 3rem); background: var(--sand); border: 1px solid var(--border); border-radius: 14px; flex-direction: column; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+#chat-panel.open { display: flex; }
+.chat-head { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--border); }
+.chat-head strong { font-family: var(--sans); font-size: 0.84rem; font-weight: 500; color: var(--ink); }
+.chat-head button { background: none; border: none; color: var(--warm-gray); font-size: 1.05rem; line-height: 1; cursor: none; }
+.chat-head button:hover { color: var(--amber); }
+#chat-log { flex: 1; overflow-y: auto; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.chat-msg { font-size: 0.82rem; line-height: 1.55; max-width: 88%; padding: 0.6rem 0.8rem; border-radius: 10px; white-space: pre-wrap; word-wrap: break-word; }
+.chat-msg.bot { background: #141414; border: 1px solid var(--border); color: var(--ink-light); align-self: flex-start; }
+.chat-msg.me { background: var(--amber-bg); border: 1px solid #3A2A10; color: var(--ink); align-self: flex-end; }
+.chat-msg.err { border-color: #5A2A2A; color: #E0A0A0; align-self: flex-start; background: #1A1212; }
+.chat-seed { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0 1.1rem 0.8rem; }
+.chat-seed button { background: transparent; border: 1px solid var(--border); border-radius: 100px; padding: 0.3rem 0.7rem; font-family: var(--sans); font-size: 0.7rem; color: var(--warm-gray); cursor: none; transition: all 0.2s; }
+.chat-seed button:hover { border-color: var(--amber); color: var(--amber); }
+.chat-foot { border-top: 1px solid var(--border); padding: 0.7rem 0.8rem; }
+.chat-row { display: flex; gap: 0.5rem; }
+#chat-input { flex: 1; background: #0F0F0F; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.7rem; font-family: var(--sans); font-size: 0.8rem; color: var(--ink); outline: none; cursor: text; }
+#chat-input:focus { border-color: var(--amber); }
+#chat-send { background: var(--amber-bg); border: 1px solid #3A2A10; border-radius: 8px; padding: 0 0.85rem; color: var(--amber); font-family: var(--sans); font-size: 0.78rem; font-weight: 500; cursor: none; }
+#chat-send:disabled { opacity: 0.4; }
+.chat-note { font-size: 0.63rem; color: var(--warm-gray); margin-top: 0.45rem; line-height: 1.4; }
+.chat-dots span { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--warm-gray); margin-right: 3px; animation: chatBlink 1.3s infinite; }
+.chat-dots span:nth-child(2) { animation-delay: 0.18s; }
+.chat-dots span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes chatBlink { 0%,80%,100% { opacity: 0.25; } 40% { opacity: 1; } }
+@media (max-width: 768px) {
+  #chat-panel { bottom: 0.8rem; right: 0.8rem; left: 0.8rem; width: auto; height: 70vh; }
+  #chat-fab { bottom: 0.9rem; right: 0.9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-dots span { animation: none; opacity: 0.6; }
+  #chat-fab:hover { transform: none; }
+}
+
 /* Custom cursor is a progressive enhancement: never leave a pointerless page. */
 @media (hover: none), (pointer: coarse) {
   *, body, a, button, .project-card, .stat-card, .nav-icon, .nav-resume { cursor: auto !important; }
@@ -270,7 +331,7 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
 <canvas id="bg-canvas"></canvas>
 
 <!-- Keyboard hint -->
-<div id="kb-hint">press 1–5 to navigate · / to focus contact</div>
+<div id="kb-hint">⌘K for commands · press 1–5 to navigate · / to focus contact</div>
 
 <!-- Now Playing -->
 <div id="now-playing">
@@ -290,6 +351,11 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
     <li><a href="#" onclick="navTo('contact'); return false;" data-en="Contact" data-ar="تواصل">Contact</a></li>
   </ul>
   <div class="nav-actions">
+    <button class="nav-cmdk" id="nav-cmdk" aria-label="Open command palette" title="Search — press Cmd K">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <span class="nav-cmdk-label" data-en="Search" data-ar="بحث">Search</span>
+      <kbd id="nav-cmdk-key">⌘K</kbd>
+    </button>
     <a class="nav-resume" href="Omar_Farhan_Resume.pdf" target="_blank" rel="noopener" data-en="Resume ↓" data-ar="السيرة الذاتية ↓">Resume ↓</a>
     <a class="nav-icon" href="https://www.linkedin.com/in/omar-farhan-aieng" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
     <a class="nav-icon" href="https://github.com/omarfc5318" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
@@ -667,7 +733,45 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   </div>
 </section>
 
-<footer><p data-en="© 2026 Omar Farhan · Davis, CA · Updated July 2026 · Press 1–5 to navigate" data-ar="© ٢٠٢٦ عمر فرحان · ديفيس، كاليفورنيا · آخر تحديث يوليو ٢٠٢٦">© 2026 Omar Farhan · Davis, CA · Updated July 2026 · Press 1–5 to navigate</p></footer>
+<footer><p data-en="© 2026 Omar Farhan · Davis, CA · Updated July 2026 · ⌘K for commands" data-ar="© ٢٠٢٦ عمر فرحان · ديفيس، كاليفورنيا · آخر تحديث يوليو ٢٠٢٦">© 2026 Omar Farhan · Davis, CA · Updated July 2026 · ⌘K for commands</p></footer>
+
+<!-- ── COMMAND PALETTE ── -->
+<div class="cmdk-overlay" id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="cmdk-box">
+    <input id="cmdk-input" type="text" autocomplete="off" spellcheck="false"
+           data-en-placeholder="Search sections, links, commands…" data-ar-placeholder="ابحث في الأقسام والروابط والأوامر…"
+           placeholder="Search sections, links, commands…" aria-label="Search commands" />
+    <ul id="cmdk-list" role="listbox"></ul>
+    <div class="cmdk-foot"><span>↑↓ navigate</span><span>↵ select</span><span>esc close</span></div>
+  </div>
+</div>
+
+<!-- ── RESUME CHAT ── -->
+<button id="chat-fab" aria-label="Ask about Omar's experience">
+  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg>
+  <span data-en="Ask about my experience" data-ar="اسأل عن خبرتي">Ask about my experience</span>
+</button>
+<div id="chat-panel" role="dialog" aria-label="Ask about Omar's experience">
+  <div class="chat-head">
+    <strong data-en="Ask about my experience" data-ar="اسأل عن خبرتي">Ask about my experience</strong>
+    <button id="chat-close" aria-label="Close">✕</button>
+  </div>
+  <div id="chat-log"></div>
+  <div class="chat-seed" id="chat-seed">
+    <button type="button">What did he build at Folio3?</button>
+    <button type="button">Does he know Snowflake?</button>
+    <button type="button">Strongest quant project?</button>
+  </div>
+  <div class="chat-foot">
+    <div class="chat-row">
+      <input id="chat-input" type="text" autocomplete="off"
+             data-en-placeholder="Ask anything about my work…" data-ar-placeholder="اسأل أي شيء عن عملي…"
+             placeholder="Ask anything about my work…" aria-label="Your question" />
+      <button id="chat-send" data-en="Send" data-ar="إرسال">Send</button>
+    </div>
+    <p class="chat-note" data-en="Answers are generated from my résumé and can be wrong. Email me to confirm anything important." data-ar="الإجابات مولّدة من سيرتي الذاتية وقد تكون غير دقيقة. راسلني للتأكد من أي معلومة مهمة.">Answers are generated from my résumé and can be wrong. Email me to confirm anything important.</p>
+  </div>
+</div>
 
 <script>
 // ── NAV SCROLL ──
@@ -876,11 +980,189 @@ document.addEventListener('keydown', (e) => {
     document.getElementById('connect-modal')?.classList.remove('open');
   }
 });
-// Show hint on first scroll
+// Show the hint whenever the page is scrolling; hide it once scrolling stops.
 window.addEventListener('scroll', () => {
   kbHint.classList.add('show');
-  clearTimeout(hintTimer); hintTimer = setTimeout(() => kbHint.classList.remove('show'), 2500);
-}, { once: true });
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => kbHint.classList.remove('show'), 900);
+}, { passive: true });
+
+
+/* ══════════ COMMAND PALETTE ══════════ */
+const cmdk = document.getElementById('cmdk');
+const cmdkInput = document.getElementById('cmdk-input');
+const cmdkList = document.getElementById('cmdk-list');
+let cmdkIdx = 0, cmdkShown = [];
+
+const CMDS = [
+  { en: 'About',                 ar: 'عني',                    hint: 'Section', kw: 'about bio background who',      run: () => navTo('about') },
+  { en: 'Experience',            ar: 'الخبرة',                  hint: 'Section', kw: 'experience work jobs roles',    run: () => navTo('experience') },
+  { en: 'Projects',              ar: 'المشاريع',                hint: 'Section', kw: 'projects portfolio built',      run: () => navTo('projects') },
+  { en: 'Skills',                ar: 'المهارات',                hint: 'Section', kw: 'skills stack tools tech',       run: () => navTo('skills') },
+  { en: 'Contact',               ar: 'تواصل',                   hint: 'Section', kw: 'contact reach message hire',    run: () => navTo('contact') },
+  { en: 'Download résumé (PDF)', ar: 'تحميل السيرة الذاتية',    hint: 'File',    kw: 'resume cv pdf download',        run: () => window.open('Omar_Farhan_Resume.pdf', '_blank') },
+  { en: 'LinkedIn',              ar: 'لينكدإن',                 hint: 'Link',    kw: 'linkedin profile connect',      run: () => window.open('https://www.linkedin.com/in/omar-farhan-aieng', '_blank') },
+  { en: 'GitHub',                ar: 'جيت هاب',                 hint: 'Link',    kw: 'github code repos source',      run: () => window.open('https://github.com/omarfc5318', '_blank') },
+  { en: 'Email Omar',            ar: 'راسل عمر',                hint: 'Link',    kw: 'email mail gmail contact',      run: () => { location.href = 'mailto:omarfc5318@gmail.com'; } },
+  { en: 'Toggle Arabic / English', ar: 'التبديل بين العربية والإنجليزية', hint: 'Language', kw: 'arabic english language عربي', run: () => toggleLang() },
+  { en: 'Ask about my experience', ar: 'اسأل عن خبرتي',        hint: 'Chat',    kw: 'ask chat question ai resume',   run: () => openChat(), chat: true },
+];
+
+function fuzzy(q, s) {
+  q = q.toLowerCase(); s = s.toLowerCase();
+  if (!q) return 0;
+  let qi = 0, score = 0, last = -2;
+  for (let i = 0; i < s.length && qi < q.length; i++) {
+    if (s[i] === q[qi]) { score += (last === i - 1) ? 3 : 1; last = i; qi++; }
+  }
+  return qi === q.length ? score : -1;
+}
+
+function cmdkRender() {
+  const q = cmdkInput.value.trim();
+  const lang = isArabic ? 'ar' : 'en';
+  cmdkShown = CMDS
+    .filter(c => !c.chat || CHAT_ON)
+    .map(c => ({ c, s: Math.max(fuzzy(q, c.en), fuzzy(q, c.ar), fuzzy(q, c.kw)) }))
+    .filter(x => x.s >= 0)
+    .sort((a, b) => b.s - a.s)
+    .map(x => x.c);
+  if (cmdkIdx >= cmdkShown.length) cmdkIdx = 0;
+  if (!cmdkShown.length) {
+    cmdkList.innerHTML = '<li class="cmdk-empty" role="presentation">' +
+      (isArabic ? 'لا توجد نتائج' : 'No matches') + '</li>';
+    return;
+  }
+  cmdkList.innerHTML = cmdkShown.map((c, i) =>
+    '<li role="option" data-i="' + i + '" aria-selected="' + (i === cmdkIdx) + '">' +
+    '<span>' + c[lang] + '</span><span class="cmdk-hint">' + c.hint + '</span></li>').join('');
+}
+
+function cmdkOpen() {
+  cmdkIdx = 0; cmdkInput.value = '';
+  cmdk.classList.add('open'); cmdkRender();
+  setTimeout(() => cmdkInput.focus(), 20);
+}
+function cmdkClose() { cmdk.classList.remove('open'); }
+function cmdkRun(i) {
+  const c = cmdkShown[i];
+  if (!c) return;
+  cmdkClose();
+  setTimeout(() => c.run(), 60);
+}
+
+cmdkInput.addEventListener('input', () => { cmdkIdx = 0; cmdkRender(); });
+cmdkList.addEventListener('click', e => {
+  const li = e.target.closest('li[data-i]');
+  if (li) cmdkRun(parseInt(li.dataset.i, 10));
+});
+cmdk.addEventListener('click', e => { if (e.target === cmdk) cmdkClose(); });
+
+cmdkInput.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); cmdkIdx = (cmdkIdx + 1) % Math.max(cmdkShown.length, 1); cmdkRender(); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); cmdkIdx = (cmdkIdx - 1 + cmdkShown.length) % Math.max(cmdkShown.length, 1); cmdkRender(); }
+  else if (e.key === 'Enter') { e.preventDefault(); cmdkRun(cmdkIdx); }
+  else if (e.key === 'Escape') { e.preventDefault(); cmdkClose(); }
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    cmdk.classList.contains('open') ? cmdkClose() : cmdkOpen();
+  }
+});
+
+document.getElementById('nav-cmdk').addEventListener('click', cmdkOpen);
+
+/* Windows and Linux visitors see Ctrl, not Cmd. */
+if (!/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) {
+  document.getElementById('nav-cmdk-key').textContent = 'Ctrl K';
+}
+
+/* ══════════ RESUME CHAT ══════════ */
+/* Point this at your deployed Cloudflare Worker. Until you do, the widget stays hidden. */
+const CHAT_ENDPOINT = 'https://omar-resume-chat.omarfarhan.workers.dev';
+const CHAT_ON = /^https:\/\/[^ ]+\./.test(CHAT_ENDPOINT) && !/REPLACE-WITH-YOUR-WORKER/.test(CHAT_ENDPOINT);
+
+const chatFab = document.getElementById('chat-fab');
+const chatPanel = document.getElementById('chat-panel');
+const chatLog = document.getElementById('chat-log');
+const chatInput = document.getElementById('chat-input');
+const chatSend = document.getElementById('chat-send');
+const chatSeed = document.getElementById('chat-seed');
+let chatHistory = [], chatBusy = false, chatGreeted = false;
+
+if (CHAT_ON) chatFab.classList.add('on');
+else console.info('[chat] Set CHAT_ENDPOINT to your Worker URL to enable the résumé chat.');
+
+function chatAdd(text, cls) {
+  const d = document.createElement('div');
+  d.className = 'chat-msg ' + cls;
+  d.textContent = text;
+  chatLog.appendChild(d);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  return d;
+}
+
+function openChat() {
+  if (!CHAT_ON) return;
+  chatPanel.classList.add('open');
+  chatFab.style.display = 'none';
+  if (!chatGreeted) {
+    chatGreeted = true;
+    chatAdd(isArabic
+      ? 'اسألني أي شيء عن خبرة عمر أو مشاريعه أو مهاراته.'
+      : "Ask me anything about Omar's experience, projects, or skills.", 'bot');
+  }
+  setTimeout(() => chatInput.focus(), 30);
+}
+function closeChat() {
+  chatPanel.classList.remove('open');
+  chatFab.style.display = '';
+}
+
+async function chatAsk(text) {
+  if (chatBusy || !text.trim()) return;
+  chatBusy = true; chatSend.disabled = true;
+  chatSeed.style.display = 'none';
+  chatAdd(text, 'me');
+  chatInput.value = '';
+  chatHistory.push({ role: 'user', content: text });
+
+  const wait = chatAdd('', 'bot');
+  wait.innerHTML = '<span class="chat-dots"><span></span><span></span><span></span></span>';
+
+  try {
+    const res = await fetch(CHAT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory.slice(-8) })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.reply) throw new Error(data.error || 'no reply');
+    wait.textContent = data.reply;
+    chatHistory.push({ role: 'assistant', content: data.reply });
+  } catch (err) {
+    wait.className = 'chat-msg err';
+    wait.textContent = isArabic
+      ? 'تعذّر الوصول. راسلني على omarfc5318@gmail.com'
+      : "Couldn't reach the server. Email me at omarfc5318@gmail.com.";
+  } finally {
+    chatBusy = false; chatSend.disabled = false;
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+}
+
+chatFab.addEventListener('click', openChat);
+document.getElementById('chat-close').addEventListener('click', closeChat);
+chatSend.addEventListener('click', () => chatAsk(chatInput.value));
+chatInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); chatAsk(chatInput.value); }
+  if (e.key === 'Escape') { e.preventDefault(); closeChat(); }
+});
+chatSeed.addEventListener('click', e => {
+  if (e.target.tagName === 'BUTTON') chatAsk(e.target.textContent);
+});
 
 </script>
 </body>
