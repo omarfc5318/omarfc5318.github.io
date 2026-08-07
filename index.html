@@ -95,6 +95,12 @@ body.ar .hero h1 em { font-style: normal; }
 .hero-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }
 .pill { font-size: 0.78rem; padding: 0.3rem 0.85rem; border: 1px solid var(--border); border-radius: 100px; color: var(--ink-light); background: var(--sand); }
 .pill.accent { background: var(--amber-bg); border-color: #3A2A10; color: var(--amber); }
+.hero-summary { max-width: 46rem; font-size: 0.98rem; line-height: 1.75; font-weight: 300; color: var(--ink-light); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.52s cubic-bezier(0.16,1,0.3,1) forwards; }
+.btn-ai { display: none; align-items: center; gap: 0.45rem; font-size: 0.82rem; font-weight: 400; color: var(--warm-gray); text-decoration: none; padding: 0.55rem 0; transition: color 0.2s; }
+.btn-ai.on { display: inline-flex; }
+.btn-ai svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+.btn-ai:hover { color: var(--amber); }
+.btn-ai:hover svg { transform: rotate(90deg) scale(1.15); }
 .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
 .btn-primary { font-family: var(--sans); font-size: 0.875rem; font-weight: 500; color: #0F0F0F; background: var(--amber); text-decoration: none; padding: 0.75rem 1.75rem; border-radius: 100px; transition: background 0.2s; cursor: none; }
 .btn-primary:hover { background: #d4812e; }
@@ -378,9 +384,11 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
     <span class="pill">Quant / Trading</span>
     <span class="pill" data-en="Open to 2027 New Grad Roles" data-ar="متاح لوظائف الخريجين ٢٠٢٧">Open to 2027 New Grad Roles</span>
   </div>
+  <p class="hero-summary" data-en="I'm a Data Science and Economics senior at UC Davis who builds AI and data systems that actually ship — an enterprise AI gateway on Amazon Bedrock, a native token layer for Apache ResilientDB, and quant models validated out of sample. I'm looking for 2027 new grad roles in AI engineering, data science, and analytics." data-ar="طالب في السنة الأخيرة بجامعة كاليفورنيا ديفيس، أدرس علم البيانات والاقتصاد، وأبني أنظمة ذكاء اصطناعي وبيانات تصل إلى الإنتاج فعلاً — بوابة ذكاء اصطناعي مؤسسية على Amazon Bedrock، وطبقة عملة أصلية لـ Apache ResilientDB، ونماذج كمية مُختبرة خارج العينة. أبحث عن وظائف خريجين لعام ٢٠٢٧ في هندسة الذكاء الاصطناعي وعلم البيانات والتحليلات.">I'm a Data Science and Economics senior at UC Davis who builds AI and data systems that actually ship — an enterprise AI gateway on Amazon Bedrock, a native token layer for Apache ResilientDB, and quant models validated out of sample. I'm looking for 2027 new grad roles in AI engineering, data science, and analytics.</p>
   <div class="hero-ctas">
     <a class="btn-primary" href="https://github.com/omarfc5318" target="_blank" data-en="See my work" data-ar="شاهد أعمالي">See my work</a>
     <a class="btn-outline" href="#" onclick="document.getElementById('connect-modal').classList.add('open'); return false;" data-en="Let's connect" data-ar="تواصل معي">Let's connect</a>
+    <a class="btn-ai" id="ai-summary-link" href="#" onclick="aiSummary(); return false;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg><span data-en="In a hurry? Get the 30-second version" data-ar="في عجلة؟ احصل على النسخة المختصرة">In a hurry? Get the 30-second version</span></a>
   </div>
 </div>
 
@@ -420,15 +428,14 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
   <div class="about-grid">
     <div class="reveal-left">
       <ul class="about-bullets">
-        <li><strong data-en="Double Major" data-ar="تخصص مزدوج">Double Major</strong> — <span data-en="Data Science + Economics, Minor in Tech Management" data-ar="علم البيانات + الاقتصاد، تخصص فرعي في إدارة التكنولوجيا">Data Science + Economics, Minor in Tech Management</span></li>
+        <li><strong data-en="Education" data-ar="التعليم">Education</strong> — <span data-en="B.S. Data Science + Economics, UC Davis · Minor in Technology Management · Class of 2027" data-ar="بكالوريوس علم البيانات + الاقتصاد، جامعة كاليفورنيا ديفيس · تخصص فرعي في إدارة التكنولوجيا · دفعة ٢٠٢٧">B.S. Data Science + Economics, UC Davis · Minor in Technology Management · Class of 2027</span></li>
         <li><strong data-en="AI Engineer" data-ar="مهندس ذكاء اصطناعي">AI Engineer</strong> — <span data-en="Enterprise AI gateway on Amazon Bedrock · guardrails, RAG, SCIM/RBAC · Folio3 Software" data-ar="بوابة ذكاء اصطناعي مؤسسية على Amazon Bedrock · ضوابط، استرجاع معزز، SCIM/RBAC · Folio3 Software">Enterprise AI gateway on Amazon Bedrock · guardrails, RAG, SCIM/RBAC · Folio3 Software</span></li>
-        <li><strong data-en="Data Engineer" data-ar="مهندس بيانات">Data Engineer</strong> — <span data-en="100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon" data-ar="خطوط أنابيب بيانات لأكثر من ١٠٠ ألف سجل، معمارية برونز/فضة/ذهب · ZestOps، ليون">100K+ record pipelines, Bronze/Silver/Gold architecture · ZestOps, Lyon</span></li>
-        <li><strong data-en="Blockchain Researcher" data-ar="باحث بلوكتشين">Blockchain Researcher</strong> — <span data-en="ResilientDB @ ExpoLab, UC Davis" data-ar="ResilientDB في ExpoLab، جامعة كاليفورنيا ديفيس">ResilientDB @ ExpoLab, UC Davis</span></li>
-        <li><strong data-en="Leadership" data-ar="قيادة">Leadership</strong> — <span data-en="President - MSA (300+ attendee events) · Regional Director NorCal - Manara West (40+ campuses, 5,000+ students) · President - Muslim Tech Collaborative · Vice Pres - Data Science Club" data-ar="رئيس - رابطة الطلاب المسلمين (فعاليات بأكثر من ٣٠٠ حضور) · مدير إقليمي شمال كاليفورنيا - منارة الغرب (أكثر من ٤٠ جامعة و٥٠٠٠ طالب) · رئيس - تجمع المسلمين في التكنولوجيا · نائب رئيس - نادي علم البيانات">President - MSA (300+ attendee events) · Regional Director NorCal - Manara West (40+ campuses, 5,000+ students) · President - Muslim Tech Collaborative · Vice Pres - Data Science Club</span></li>
-        <li><strong data-en="Founder" data-ar="مؤسس">Founder</strong> — <span data-en="Hala · restaurant discovery app" data-ar="هلا · تطبيق اكتشاف المطاعم">Hala · restaurant discovery app</span></li>
+        <li><strong data-en="Blockchain Researcher" data-ar="باحث بلوكتشين">Blockchain Researcher</strong> — <span data-en="RoK — native token layer for Apache ResilientDB · contributions merged upstream · ExpoLab, UC Davis" data-ar="RoK — طبقة العملة الأصلية لـ Apache ResilientDB · مساهمات مدمجة في المشروع · ExpoLab، جامعة كاليفورنيا ديفيس">RoK — native token layer for Apache ResilientDB · contributions merged upstream · ExpoLab, UC Davis</span></li>
+        <li><strong data-en="Data Engineer" data-ar="مهندس بيانات">Data Engineer</strong> — <span data-en="100K+ record pipelines · cut vendor correction time 66% on a production vision/OCR product · ZestOps, Lyon" data-ar="خطوط أنابيب لأكثر من ١٠٠ ألف سجل · خفض وقت التصحيح لدى الموردين بنسبة ٦٦٪ في منتج OCR إنتاجي · ZestOps، ليون">100K+ record pipelines · cut vendor correction time 66% on a production vision/OCR product · ZestOps, Lyon</span></li>
+        <li><strong data-en="Founder" data-ar="مؤسس">Founder</strong> — <span data-en="Hala · restaurant discovery across 5 Gulf cities · team of 6 · 100+ beta testers pre-launch" data-ar="هلا · اكتشاف المطاعم في ٥ مدن خليجية · فريق من ٦ · أكثر من ١٠٠ مختبر تجريبي قبل الإطلاق">Hala · restaurant discovery across 5 Gulf cities · team of 6 · 100+ beta testers pre-launch</span></li>
+        <li><strong data-en="Certified" data-ar="شهادات">Certified</strong> — <span data-en="SnowPro Core · NVIDIA NCP-AAI (Agentic AI) · AWS Certified Cloud Practitioner" data-ar="SnowPro Core · NVIDIA NCP-AAI (ذكاء اصطناعي وكيلي) · AWS Certified Cloud Practitioner">SnowPro Core · NVIDIA NCP-AAI (Agentic AI) · AWS Certified Cloud Practitioner</span></li>
+        <li><strong data-en="Leadership" data-ar="قيادة">Leadership</strong> — <span data-en="Exec Decision Maker, ASUCD Int'l Student Committee (5,985+ students represented, co-launched airport shuttle) · President, MSA (300+ attendee events) · President, Muslim Tech Collaborative · Synergy, Davis Economics Collective · and many more…" data-ar="صانع قرار تنفيذي، لجنة الطلاب الدوليين ASUCD (تمثيل أكثر من ٥٩٨٥ طالباً، إطلاق خدمة نقل للمطار) · رئيس، رابطة الطلاب المسلمين (فعاليات بأكثر من ٣٠٠ حضور) · رئيس، تجمع المسلمين في التكنولوجيا · التآزر، تجمع ديفيس للاقتصاد · وغيرها الكثير…">Exec Decision Maker, ASUCD Int'l Student Committee (5,985+ students represented, co-launched airport shuttle) · President, MSA (300+ attendee events) · President, Muslim Tech Collaborative · Synergy, Davis Economics Collective · and many more…</span></li>
         <li><strong data-en="Trader" data-ar="متداول">Trader</strong> — <span data-en="8,400% return · crypto &amp; forex · systematic risk management" data-ar="عائد ٨٤٠٠٪ · العملات الرقمية والفوركس · إدارة المخاطر المنهجية">8,400% return · crypto &amp; forex · systematic risk management</span></li>
-        <li><strong data-en="Certified" data-ar="شهادات">Certified</strong> — <span data-en="SnowPro Core · NVIDIA NCP-AAI (Agentic AI) · AWS Certified Cloud Practitioner" data-ar="SnowPro Core · NVIDIA NCP-AAI · AWS Certified Cloud Practitioner">SnowPro Core · NVIDIA NCP-AAI (Agentic AI) · AWS Certified Cloud Practitioner</span></li>
-        <li><strong data-en="Student Government" data-ar="حكومة الطلاب">Student Government</strong> — <span data-en="Executive Committee Member · ASUCD International Student Representative Committee" data-ar="عضو اللجنة التنفيذية · لجنة تمثيل الطلاب الدوليين">Executive Committee Member · ASUCD International Student Representative Committee</span></li>
       </ul>
       <div class="tag-list">
         <span class="tag" data-en="AI Engineering" data-ar="هندسة الذكاء الاصطناعي">AI Engineering</span>
@@ -447,19 +454,14 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
           <div class="stat-num">$50K+</div>
           <div class="stat-label" data-en="Trading Revenue" data-ar="عائد التداول">Trading Revenue</div>
         </div>
-        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('exp-breakdown');var arrow=document.getElementById('exp-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight='200px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
-          <div class="stat-num">12+</div>
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('exp-breakdown');var arrow=document.getElementById('exp-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight=(d.dataset.fullHeight||200)+'px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+          <div class="stat-num" id="exp-total">19+</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
             <div class="stat-label" data-en="Months Industry Exp." data-ar="أشهر خبرة مهنية">Months Industry Exp.</div>
             <span id="exp-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
           </div>
           <div id="exp-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;margin-top:0;text-align:left;">
-            <div style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;">
-              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span>ZestOps · Data Analyst</span><span style="color:#E8943A;font-weight:500;" data-en="3 mo" data-ar="٣ أشهر">3 mo</span></div>
-              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span>ExpoLab · Research</span><span style="color:#E8943A;font-weight:500;" data-en="4 mo" data-ar="٤ أشهر">4 mo</span></div>
-              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid #2A2A2A;font-size:0.75rem;color:#B0ADA8;"><span>Folio3 · AI Engineering</span><span style="color:#E8943A;font-weight:500;" data-en="2 mo" data-ar="شهران">2 mo</span></div>
-              <div style="display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.75rem;color:#B0ADA8;"><span data-en="Industry Shadowing" data-ar="مرافقة مهنية">Industry Shadowing</span><span style="color:#E8943A;font-weight:500;" data-en="1 mo" data-ar="شهر">1 mo</span></div>
-            </div>
+            <div id="exp-rows" style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;"></div>
           </div>
         </div>
       </div>
@@ -543,6 +545,15 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
         <h3 data-en="Data Analyst Intern" data-ar="متدرب محلل بيانات">Data Analyst Intern</h3>
         <div class="exp-org" data-en="ZestOps · Lyon, France" data-ar="ZestOps · ليون، فرنسا">ZestOps · Lyon, France</div>
         <div class="exp-tags"><span class="exp-tag">ETL Pipelines</span><span class="exp-tag">100K+ Records</span><span class="exp-tag">AWS S3</span><span class="exp-tag">Snowflake</span><span class="exp-tag">Python · SQL</span><span class="exp-tag">Vision Model</span><span class="exp-tag">Record Linkage</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Aug 2022 – Apr 2023</div>
+      <span class="exp-type" data-en="Internship" data-ar="تدريب">Internship</span>
+      <div class="exp-content">
+        <h3 data-en="Product Management Intern" data-ar="متدرب إدارة منتجات">Product Management Intern</h3>
+        <div class="exp-org" data-en="FinTech Startup (Shabah) · Riyadh · Ceased operations 2023" data-ar="شركة ناشئة في التقنية المالية (شبح) · الرياض · توقفت عن العمل ٢٠٢٣">FinTech Startup (Shabah) · Riyadh · Ceased operations 2023</div>
+        <div class="exp-tags"><span class="exp-tag" data-en="Product Roadmap" data-ar="خارطة طريق المنتج">Product Roadmap</span><span class="exp-tag" data-en="30+ Customer Interviews" data-ar="أكثر من ٣٠ مقابلة عملاء">30+ Customer Interviews</span><span class="exp-tag" data-en="Product-Market Fit" data-ar="ملاءمة المنتج للسوق">Product-Market Fit</span><span class="exp-tag" data-en="Crypto Payments" data-ar="مدفوعات العملات الرقمية">Crypto Payments</span><span class="exp-tag">Binance Wallet</span><span class="exp-tag">MetaMask</span></div>
       </div>
     </div>
     <div class="exp-item reveal">
@@ -896,6 +907,73 @@ function typewrite() {
 }
 typewrite();
 
+// ── EXPERIENCE MONTHS (computed on load) ──
+// Edit this array only. The stat number and the breakdown rows both derive from it.
+// end: null  → open-ended, counted through today.
+// end: date  → may be in the future; counting stops at today and freezes on that date.
+// fixed: n   → intermittent work not derivable from a date span; contributes n months flat.
+const EXPERIENCE = [
+  { en: 'Folio3 · AI Engineering',     ar: 'Folio3 · هندسة ذكاء اصطناعي', start: '2026-06-15', end: '2026-09-25' },
+  { en: 'ExpoLab · Research',          ar: 'ExpoLab · بحث',                start: '2026-04-01', end: null },
+  { en: 'ZestOps · Data Analyst',      ar: 'ZestOps · محلل بيانات',        start: '2025-06-01', end: '2025-08-31' },
+  { en: 'Shabah · Product Management', ar: 'شبح · إدارة المنتجات',         start: '2022-08-01', end: '2023-04-30' },
+  { en: 'Industry Shadowing',          ar: 'مرافقة مهنية',                 fixed: 1 }
+];
+
+function monthsBetween(startISO, endISO) {
+  const s = new Date(startISO);
+  const now = new Date();
+  // A known end date can sit in the future — never count time not yet worked.
+  const e = endISO ? new Date(Math.min(new Date(endISO), now)) : now;
+  const days = (e - s) / 86400000;
+  return Math.max(0, Math.round(days / 30.44));   // average month length
+}
+
+function roleMonths(r) {
+  return typeof r.fixed === 'number' ? r.fixed : monthsBetween(r.start, r.end);
+}
+
+function arDigits(n) {
+  return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+function monthsLabelAr(n) {
+  if (n === 1) return 'شهر';
+  if (n === 2) return 'شهران';
+  if (n <= 10) return arDigits(n) + ' أشهر';
+  return arDigits(n) + ' شهراً';
+}
+
+function renderExperienceMonths() {
+  const rows = document.getElementById('exp-rows');
+  const total = document.getElementById('exp-total');
+  if (!rows || !total) return;
+
+  let sum = 0;
+  rows.innerHTML = EXPERIENCE.map((r, i) => {
+    const n = roleMonths(r);
+    sum += n;
+    const last = i === EXPERIENCE.length - 1;
+    const border = last ? '' : 'border-bottom:1px solid #2A2A2A;';
+    return '<div style="display:flex;justify-content:space-between;padding:0.3rem 0;' + border +
+      'font-size:0.75rem;color:#B0ADA8;">' +
+      '<span data-en="' + r.en + '" data-ar="' + r.ar + '">' + r.en + '</span>' +
+      '<span style="color:#E8943A;font-weight:500;" data-en="' + n + ' mo" data-ar="' +
+      monthsLabelAr(n) + '">' + n + ' mo</span></div>';
+  }).join('');
+
+  total.setAttribute('data-en', sum + '+');
+  total.setAttribute('data-ar', arDigits(sum) + '+');
+  total.innerHTML = isArabic ? arDigits(sum) + '+' : sum + '+';
+
+  // keep the collapsible tall enough for however many rows exist
+  const bd = document.getElementById('exp-breakdown');
+  if (bd) {
+    bd.dataset.fullHeight = String(EXPERIENCE.length * 26 + 30);
+    if (bd.classList.contains('open')) bd.style.maxHeight = bd.dataset.fullHeight + 'px';
+  }
+}
+
 // ── LANG TOGGLE ──
 let isArabic = false;
 function toggleLang() {
@@ -1092,7 +1170,11 @@ const chatSend = document.getElementById('chat-send');
 const chatSeed = document.getElementById('chat-seed');
 let chatHistory = [], chatBusy = false, chatGreeted = false;
 
-if (CHAT_ON) chatFab.classList.add('on');
+if (CHAT_ON) {
+  chatFab.classList.add('on');
+  const aiLink = document.getElementById('ai-summary-link');
+  if (aiLink) aiLink.classList.add('on');
+}
 else console.info('[chat] Set CHAT_ENDPOINT to your Worker URL to enable the résumé chat.');
 
 function chatAdd(text, cls) {
@@ -1116,6 +1198,15 @@ function openChat() {
   }
   setTimeout(() => chatInput.focus(), 30);
 }
+function aiSummary() {
+  if (!CHAT_ON) return;
+  openChat();
+  chatSeed.style.display = 'none';
+  setTimeout(() => chatAsk(isArabic
+    ? 'أعطني ملخصاً في ٣٠ ثانية عن عمر: من هو، وما الذي بناه، وما الذي يبحث عنه.'
+    : "Give me the 30-second version of Omar — who he is, the strongest things he's built, and what he's looking for."), 150);
+}
+
 function closeChat() {
   chatPanel.classList.remove('open');
   chatFab.style.display = '';
@@ -1138,8 +1229,11 @@ async function chatAsk(text) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: chatHistory.slice(-8) })
     });
-    const data = await res.json();
-    if (!res.ok || !data.reply) throw new Error(data.error || 'no reply');
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.reply) {
+      console.error('[chat] HTTP', res.status, data.error || '(no error field)');
+      throw new Error(data.error || 'no reply');
+    }
     wait.textContent = data.reply;
     chatHistory.push({ role: 'assistant', content: data.reply });
   } catch (err) {
@@ -1163,6 +1257,8 @@ chatInput.addEventListener('keydown', e => {
 chatSeed.addEventListener('click', e => {
   if (e.target.tagName === 'BUTTON') chatAsk(e.target.textContent);
 });
+
+renderExperienceMonths();
 
 </script>
 </body>
