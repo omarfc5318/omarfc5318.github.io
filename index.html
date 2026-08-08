@@ -135,6 +135,37 @@ section { max-width: 1100px; margin: 0 auto; padding: 6rem 4rem; position: relat
 .stat-num { font-family: var(--serif); font-size: 2.2rem; color: var(--amber); line-height: 1; margin-bottom: 0.2rem; }
 .stat-label { font-size: 0.72rem; color: var(--warm-gray); letter-spacing: 0.07em; text-transform: uppercase; }
 
+/* ── EXPERIENCE BREAKDOWN (scrollable) ── */
+.exp-scroll-wrap { position: relative; border-top: 1px solid var(--border); margin-top: 0.75rem; padding-top: 0.75rem; }
+#exp-rows {
+  max-height: 132px; overflow-y: auto; overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch; padding-right: 0.4rem;
+  scrollbar-width: thin; scrollbar-color: #3A2A10 transparent;
+  outline: none;
+}
+#exp-rows > div > span:last-child { white-space: nowrap; }
+#exp-rows::-webkit-scrollbar { width: 4px; }
+#exp-rows::-webkit-scrollbar-track { background: transparent; }
+#exp-rows::-webkit-scrollbar-thumb { background: #3A2A10; border-radius: 4px; transition: background 0.2s; }
+.exp-scroll-wrap:hover #exp-rows::-webkit-scrollbar-thumb { background: var(--amber); }
+#exp-rows:focus-visible { box-shadow: inset 0 0 0 1px rgba(232,148,58,0.5); border-radius: 6px; }
+/* fade + chevron hint: only while there is more below */
+.exp-scroll-wrap::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26px;
+  background: linear-gradient(to bottom, rgba(26,26,26,0), var(--sand) 78%);
+  pointer-events: none; opacity: 0; transition: opacity 0.25s ease;
+}
+.exp-scroll-wrap.scrollable:not(.at-end)::after { opacity: 1; }
+.exp-more {
+  position: absolute; left: 50%; bottom: 0.1rem; transform: translateX(-50%);
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--amber); pointer-events: none; opacity: 0; transition: opacity 0.25s ease;
+}
+.exp-scroll-wrap.scrollable:not(.at-end) .exp-more { opacity: 0.85; animation: expNudge 1.8s ease-in-out infinite; }
+@keyframes expNudge { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(2px); } }
+@media (max-width: 768px) { #exp-rows { max-height: 116px; } }
+@media (prefers-reduced-motion: reduce) { .exp-more { animation: none; } }
+
 /* ── EXPERIENCE TIMELINE ── */
 .timeline { position: relative; padding-left: 2rem; }
 .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--amber) 8%, var(--amber) 92%, transparent); opacity: 0.4; }
@@ -454,14 +485,17 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
           <div class="stat-num">$50K+</div>
           <div class="stat-label" data-en="Trading Revenue" data-ar="عائد التداول">Trading Revenue</div>
         </div>
-        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('exp-breakdown');var arrow=document.getElementById('exp-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight=(d.dataset.fullHeight||200)+'px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';}" style="cursor:none;">
+        <div class="stat-card reveal-scale" onclick="var d=document.getElementById('exp-breakdown');var arrow=document.getElementById('exp-arrow');var isOpen=d.classList.contains('open');if(isOpen){d.style.maxHeight='0';d.style.opacity='0';arrow.style.transform='rotate(0deg)';setTimeout(function(){d.classList.remove('open')},300);}else{d.classList.add('open');d.style.maxHeight=(d.dataset.fullHeight||200)+'px';d.style.opacity='1';arrow.style.transform='rotate(180deg)';setTimeout(updateExpScrollHint,20);}" style="cursor:none;">
           <div class="stat-num" id="exp-total">19+</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:0.3rem;">
             <div class="stat-label" data-en="Months Industry Exp." data-ar="أشهر خبرة مهنية">Months Industry Exp.</div>
             <span id="exp-arrow" style="color:#E8943A;font-size:0.7rem;transition:transform 0.3s ease;display:inline-block;">↓</span>
           </div>
           <div id="exp-breakdown" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.3s ease;margin-top:0;text-align:left;">
-            <div id="exp-rows" style="border-top:1px solid #2A2A2A;margin-top:0.75rem;padding-top:0.75rem;"></div>
+            <div class="exp-scroll-wrap">
+              <div id="exp-rows" tabindex="0" role="list" aria-label="Experience breakdown by role"></div>
+              <span class="exp-more" aria-hidden="true">▾</span>
+            </div>
           </div>
         </div>
       </div>
@@ -548,12 +582,39 @@ footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--b
       </div>
     </div>
     <div class="exp-item reveal">
+      <div class="exp-date">Jun – Jul 2023</div>
+      <span class="exp-type" data-en="Internship" data-ar="تدريب">Internship</span>
+      <div class="exp-content">
+        <h3 data-en="Business Analyst" data-ar="محلل أعمال">Business Analyst</h3>
+        <div class="exp-org" data-en="MegaWatt Dubai LLC · Dubai, UAE" data-ar="ميغاوات دبي · دبي، الإمارات">MegaWatt Dubai LLC · Dubai, UAE</div>
+        <div class="exp-tags"><span class="exp-tag" data-en="AI / LLM Tooling" data-ar="أدوات الذكاء الاصطناعي">AI / LLM Tooling</span><span class="exp-tag" data-en="OCR Automation" data-ar="أتمتة التعرف الضوئي">OCR Automation</span><span class="exp-tag" data-en="Hours → Minutes" data-ar="ساعات ← دقائق">Hours → Minutes</span><span class="exp-tag" data-en="Purchase Order Tracking" data-ar="تتبع أوامر الشراء">Purchase Order Tracking</span><span class="exp-tag" data-en="Supplier · OEM" data-ar="الموردون · المصنّعون">Supplier · OEM</span><span class="exp-tag" data-en="Competitor Pricing" data-ar="تسعير المنافسين">Competitor Pricing</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
       <div class="exp-date">Aug 2022 – Apr 2023</div>
       <span class="exp-type" data-en="Internship" data-ar="تدريب">Internship</span>
       <div class="exp-content">
         <h3 data-en="Product Management Intern" data-ar="متدرب إدارة منتجات">Product Management Intern</h3>
         <div class="exp-org" data-en="FinTech Startup (Shabah) · Riyadh · Ceased operations 2023" data-ar="شركة ناشئة في التقنية المالية (شبح) · الرياض · توقفت عن العمل ٢٠٢٣">FinTech Startup (Shabah) · Riyadh · Ceased operations 2023</div>
         <div class="exp-tags"><span class="exp-tag" data-en="Product Roadmap" data-ar="خارطة طريق المنتج">Product Roadmap</span><span class="exp-tag" data-en="30+ Customer Interviews" data-ar="أكثر من ٣٠ مقابلة عملاء">30+ Customer Interviews</span><span class="exp-tag" data-en="Product-Market Fit" data-ar="ملاءمة المنتج للسوق">Product-Market Fit</span><span class="exp-tag" data-en="Crypto Payments" data-ar="مدفوعات العملات الرقمية">Crypto Payments</span><span class="exp-tag">Binance Wallet</span><span class="exp-tag">MetaMask</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Jun – Jul 2022</div>
+      <span class="exp-type" data-en="Externship" data-ar="تدريب خارجي">Externship</span>
+      <div class="exp-content">
+        <h3 data-en="Data Engineering Extern" data-ar="متدرب هندسة بيانات">Data Engineering Extern</h3>
+        <div class="exp-org" data-en="Pizza Hut · Plano, TX · Remote" data-ar="بيتزا هت · بلانو، تكساس · عن بُعد">Pizza Hut · Plano, TX · Remote</div>
+        <div class="exp-tags"><span class="exp-tag" data-en="Data Warehouse" data-ar="مستودع البيانات">Data Warehouse</span><span class="exp-tag" data-en="Streaming Ingestion" data-ar="التدفق اللحظي للبيانات">Streaming Ingestion</span><span class="exp-tag">API · JSON · HTTPS</span><span class="exp-tag" data-en="Reporting &amp; Analytics" data-ar="التقارير والتحليلات">Reporting &amp; Analytics</span><span class="exp-tag">SDLC · Agile</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Feb – Apr 2022</div>
+      <span class="exp-type" data-en="Externship" data-ar="تدريب خارجي">Externship</span>
+      <div class="exp-content">
+        <h3 data-en="Data Analytics Extern" data-ar="متدرب تحليل بيانات">Data Analytics Extern</h3>
+        <div class="exp-org" data-en="La3eb · Riyadh, Saudi Arabia · On-site" data-ar="لاعب · الرياض، السعودية · حضورياً">La3eb · Riyadh, Saudi Arabia · On-site</div>
+        <div class="exp-tags"><span class="exp-tag" data-en="Exploratory Data Analysis" data-ar="التحليل الاستكشافي للبيانات">Exploratory Data Analysis</span><span class="exp-tag" data-en="Fraud Prevention" data-ar="مكافحة الاحتيال">Fraud Prevention</span><span class="exp-tag">Python · SQL</span><span class="exp-tag">GCP</span><span class="exp-tag" data-en="ETL" data-ar="استخراج وتحويل وتحميل">ETL</span><span class="exp-tag" data-en="Relational Databases" data-ar="قواعد البيانات العلائقية">Relational Databases</span></div>
       </div>
     </div>
     <div class="exp-item reveal">
@@ -916,9 +977,11 @@ const EXPERIENCE = [
   { en: 'Folio3 · AI Engineering',     ar: 'Folio3 · هندسة ذكاء اصطناعي', start: '2026-06-15', end: '2026-09-25' },
   { en: 'ExpoLab · Research',          ar: 'ExpoLab · بحث',                start: '2026-04-01', end: null },
   { en: 'ZestOps · Data Analyst',      ar: 'ZestOps · محلل بيانات',        start: '2025-06-01', end: '2025-08-31' },
-  { en: 'Shabah · Product Management', ar: 'شبح · إدارة المنتجات',         start: '2022-08-01', end: '2023-04-30' },
-  { en: 'Industry Shadowing',          ar: 'مرافقة مهنية',                 fixed: 1 }
+  { en: 'MegaWatt · Business Analyst', ar: 'ميغاوات · محلل أعمال',         start: '2023-06-01', end: '2023-07-31' },
+  { en: 'Shabah · Product Management', ar: 'شبح · إدارة المنتجات',         start: '2022-08-01', end: '2023-04-30' }
 ];
+// Externships (Pizza Hut, La3eb) are shown on the timeline but intentionally
+// excluded here — the stat counts hands-on industry work only.
 
 function monthsBetween(startISO, endISO) {
   const s = new Date(startISO);
@@ -955,8 +1018,8 @@ function renderExperienceMonths() {
     sum += n;
     const last = i === EXPERIENCE.length - 1;
     const border = last ? '' : 'border-bottom:1px solid #2A2A2A;';
-    return '<div style="display:flex;justify-content:space-between;padding:0.3rem 0;' + border +
-      'font-size:0.75rem;color:#B0ADA8;">' +
+    return '<div role="listitem" style="display:flex;justify-content:space-between;align-items:baseline;' +
+      'gap:0.5rem;padding:0.3rem 0;' + border + 'font-size:0.72rem;line-height:1.35;color:#B0ADA8;">' +
       '<span data-en="' + r.en + '" data-ar="' + r.ar + '">' + r.en + '</span>' +
       '<span style="color:#E8943A;font-weight:500;" data-en="' + n + ' mo" data-ar="' +
       monthsLabelAr(n) + '">' + n + ' mo</span></div>';
@@ -966,13 +1029,41 @@ function renderExperienceMonths() {
   total.setAttribute('data-ar', arDigits(sum) + '+');
   total.innerHTML = isArabic ? arDigits(sum) + '+' : sum + '+';
 
-  // keep the collapsible tall enough for however many rows exist
-  const bd = document.getElementById('exp-breakdown');
-  if (bd) {
-    bd.dataset.fullHeight = String(EXPERIENCE.length * 26 + 30);
-    if (bd.classList.contains('open')) bd.style.maxHeight = bd.dataset.fullHeight + 'px';
-  }
+  syncExpBreakdownHeight();
+  updateExpScrollHint();
 }
+
+// The rows list scrolls once it outgrows its max-height, so measure the real
+// laid-out height instead of guessing 26px per row — long or wrapped labels
+// (and Arabic) would otherwise get clipped with no way to reach them.
+function syncExpBreakdownHeight() {
+  const bd = document.getElementById('exp-breakdown');
+  if (!bd) return;
+  const wrap = bd.querySelector('.exp-scroll-wrap');
+  const h = Math.ceil((wrap ? wrap.offsetHeight : bd.scrollHeight) + 14);
+  bd.dataset.fullHeight = String(h);
+  if (bd.classList.contains('open')) bd.style.maxHeight = h + 'px';
+}
+
+// Show the fade + chevron only while there is more list below the fold.
+function updateExpScrollHint() {
+  const rows = document.getElementById('exp-rows');
+  if (!rows) return;
+  const wrap = rows.parentElement;
+  const scrollable = rows.scrollHeight - rows.clientHeight > 2;
+  wrap.classList.toggle('scrollable', scrollable);
+  wrap.classList.toggle('at-end', rows.scrollTop + rows.clientHeight >= rows.scrollHeight - 2);
+}
+
+(function initExpScroll() {
+  const rows = document.getElementById('exp-rows');
+  if (!rows) return;
+  rows.addEventListener('scroll', updateExpScrollHint, { passive: true });
+  // clicking or dragging inside the list must not collapse the card
+  rows.addEventListener('click', e => e.stopPropagation());
+  rows.addEventListener('mousedown', e => e.stopPropagation());
+  window.addEventListener('resize', () => { syncExpBreakdownHeight(); updateExpScrollHint(); });
+})();
 
 // ── LANG TOGGLE ──
 let isArabic = false;
@@ -989,6 +1080,8 @@ function toggleLang() {
   const lang = isArabic ? 'ar' : 'en';
   document.querySelectorAll('[data-en]').forEach(el => { const val = el.getAttribute('data-' + lang); if (val) el.innerHTML = val; });
   document.querySelectorAll('[data-en-placeholder]').forEach(el => { el.placeholder = isArabic ? el.getAttribute('data-ar-placeholder') : el.getAttribute('data-en-placeholder'); });
+  // Arabic labels wrap differently — remeasure the breakdown after a swap.
+  if (typeof syncExpBreakdownHeight === 'function') { syncExpBreakdownHeight(); updateExpScrollHint(); }
 }
 
 // ── SCROLL REVEAL ──
